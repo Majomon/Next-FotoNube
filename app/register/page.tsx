@@ -1,0 +1,109 @@
+"use client";
+
+import { registerUser } from "@/actions/auth/register";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+export default function RegisterPage() {
+  const [role, setRole] = useState("photographer");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const router = useRouter();
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("HGola");
+
+    const resp = await registerUser({ role, email, password });
+
+    if (resp.error) {
+      alert(resp.error); // O mostrar mensaje
+      return;
+    }
+
+    router.push("/");
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 relative">
+      {/* Fondo con imagen dividida */}
+      <div className="absolute inset-0 grid grid-cols-2">
+        <img
+          src="/left-bg.jpg"
+          alt="left"
+          className="w-full h-full object-cover"
+        />
+        <img
+          src="/right-bg.jpg"
+          alt="right"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
+
+      {/* Contenido centrado */}
+      <div className="z-10 bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center mb-6">REGISTRARSE</h2>
+
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div className="flex justify-center gap-4 mb-4">
+            <label className="flex items-center gap-2 text-sm cursor-pointer">
+              <input
+                type="radio"
+                name="role"
+                value="photographer"
+                checked={role === "photographer"}
+                onChange={() => setRole("photographer")}
+              />
+              SOY FOTÓGRAFO
+            </label>
+            <label className="flex items-center gap-2 text-sm cursor-pointer">
+              <input
+                type="radio"
+                name="role"
+                value="buyer"
+                checked={role === "buyer"}
+                onChange={() => setRole("buyer")}
+              />
+              QUIERO COMPRAR FOTOS
+            </label>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">
+              Correo Electrónico
+            </label>
+            <input
+              type="email"
+              className="w-full mt-1 px-3 py-2 border rounded-md"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Contraseña</label>
+            <input
+              type="password"
+              className="w-full mt-1 px-3 py-2 border rounded-md"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="new-password"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition"
+          >
+            REGISTRARSE
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
