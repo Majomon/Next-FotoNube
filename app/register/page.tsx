@@ -21,7 +21,7 @@ export default function RegisterPage() {
       return;
     }
 
-    router.push("/");
+    router.push("/profile");
   };
 
   useEffect(() => {

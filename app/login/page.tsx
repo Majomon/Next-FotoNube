@@ -21,14 +21,8 @@ export default function LoginPage() {
       return;
     }
 
-    router.push("/");
+    router.push("/profile");
   };
-
-  useEffect(() => {
-    if (user) {
-      console.log("Usuario logueado:", user);
-    }
-  }, [user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 relative">
