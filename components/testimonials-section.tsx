@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, Star } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { useAppStore } from "@/lib/store"
-import Image from "next/image"
-import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { useAppStore } from "@/store/store";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function TestimonialsSection() {
-  const { activeTestimonial, setActiveTestimonial } = useAppStore()
-  const [itemsPerView, setItemsPerView] = useState(3)
+  const { activeTestimonial, setActiveTestimonial } = useAppStore();
+  const [itemsPerView, setItemsPerView] = useState(3);
 
   const testimonials = [
     {
@@ -53,42 +53,46 @@ export default function TestimonialsSection() {
       text: "La mejor inversión que he hecho para mi negocio. FOTONUBE me permite gestionar todos mis álbumes de manera profesional y mis clientes están muy satisfechos.",
       rating: 5,
     },
-  ]
+  ];
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
-        setItemsPerView(3)
+        setItemsPerView(3);
       } else if (window.innerWidth >= 768) {
-        setItemsPerView(2)
+        setItemsPerView(2);
       } else {
-        setItemsPerView(1)
+        setItemsPerView(1);
       }
-    }
+    };
 
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  const maxIndex = Math.max(0, testimonials.length - itemsPerView)
+  const maxIndex = Math.max(0, testimonials.length - itemsPerView);
 
   const nextTestimonial = () => {
-    setActiveTestimonial(activeTestimonial >= maxIndex ? 0 : activeTestimonial + 1)
-  }
+    setActiveTestimonial(
+      activeTestimonial >= maxIndex ? 0 : activeTestimonial + 1
+    );
+  };
 
   const prevTestimonial = () => {
-    setActiveTestimonial(activeTestimonial <= 0 ? maxIndex : activeTestimonial - 1)
-  }
+    setActiveTestimonial(
+      activeTestimonial <= 0 ? maxIndex : activeTestimonial - 1
+    );
+  };
 
   const getVisibleTestimonials = () => {
-    const visible = []
+    const visible = [];
     for (let i = 0; i < itemsPerView; i++) {
-      const index = (activeTestimonial + i) % testimonials.length
-      visible.push({ ...testimonials[index], originalIndex: index })
+      const index = (activeTestimonial + i) % testimonials.length;
+      visible.push({ ...testimonials[index], originalIndex: index });
     }
-    return visible
-  }
+    return visible;
+  };
 
   return (
     <section className="py-20 bg-white relative">
@@ -101,7 +105,9 @@ export default function TestimonialsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-4">TESTIMONIOS</h2>
-          <p className="text-lg text-gray-600">Lo que dicen nuestros fotógrafos sobre FOTONUBE</p>
+          <p className="text-lg text-gray-600">
+            Lo que dicen nuestros fotógrafos sobre FOTONUBE
+          </p>
         </motion.div>
 
         <div className="relative max-w-7xl mx-auto">
@@ -134,7 +140,11 @@ export default function TestimonialsSection() {
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5 }}
                 className={`grid gap-6 ${
-                  itemsPerView === 3 ? "grid-cols-3" : itemsPerView === 2 ? "grid-cols-2" : "grid-cols-1"
+                  itemsPerView === 3
+                    ? "grid-cols-3"
+                    : itemsPerView === 2
+                    ? "grid-cols-2"
+                    : "grid-cols-1"
                 }`}
               >
                 {getVisibleTestimonials().map((testimonial, index) => (
@@ -163,17 +173,26 @@ export default function TestimonialsSection() {
                         {/* Stars */}
                         <div className="flex justify-center space-x-1">
                           {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                            <Star
+                              key={i}
+                              className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                            />
                           ))}
                         </div>
 
                         {/* Testimonial Text */}
-                        <p className="text-gray-600 leading-relaxed text-sm italic">"{testimonial.text}"</p>
+                        <p className="text-gray-600 leading-relaxed text-sm italic">
+                          "{testimonial.text}"
+                        </p>
 
                         {/* Name and Role */}
                         <div>
-                          <h3 className="text-lg font-bold text-gray-900">{testimonial.name}</h3>
-                          <p className="text-sm text-cyan-600 font-medium">{testimonial.role}</p>
+                          <h3 className="text-lg font-bold text-gray-900">
+                            {testimonial.name}
+                          </h3>
+                          <p className="text-sm text-cyan-600 font-medium">
+                            {testimonial.role}
+                          </p>
                         </div>
                       </CardContent>
                     </Card>
@@ -190,7 +209,9 @@ export default function TestimonialsSection() {
                 key={index}
                 onClick={() => setActiveTestimonial(index)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === activeTestimonial ? "bg-cyan-500 scale-125" : "bg-gray-300 hover:bg-gray-400"
+                  index === activeTestimonial
+                    ? "bg-cyan-500 scale-125"
+                    : "bg-gray-300 hover:bg-gray-400"
                 }`}
               />
             ))}
@@ -198,5 +219,5 @@ export default function TestimonialsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

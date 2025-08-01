@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown } from "lucide-react"
-import { useAppStore } from "@/lib/store"
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { useAppStore } from "@/store/store";
 
 export default function FAQSection() {
-  const { expandedFaq, setExpandedFaq } = useAppStore()
+  const { expandedFaq, setExpandedFaq } = useAppStore();
 
   const faqs = [
     {
@@ -38,11 +38,11 @@ export default function FAQSection() {
       answer:
         "Desde tu panel de control puedes gestionar todos tus álbumes, ver estadísticas de ventas, configurar precios, gestionar clientes y mucho más. Tienes control total sobre tu contenido y ventas.",
     },
-  ]
+  ];
 
   const toggleFaq = (index: number) => {
-    setExpandedFaq(expandedFaq === index ? null : index)
-  }
+    setExpandedFaq(expandedFaq === index ? null : index);
+  };
 
   return (
     <section className="py-20 bg-gray-50">
@@ -54,10 +54,12 @@ export default function FAQSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">PREGUNTAS FRECUENTES</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            PREGUNTAS FRECUENTES
+          </h2>
           <p className="text-lg text-gray-600">
-            Encuentra aquí las respuestas a las preguntas más comunes sobre nuestro servicio de venta y distribución de
-            fotos en línea.
+            Encuentra aquí las respuestas a las preguntas más comunes sobre
+            nuestro servicio de venta y distribución de fotos en línea.
           </p>
         </motion.div>
 
@@ -75,8 +77,13 @@ export default function FAQSection() {
                 onClick={() => toggleFaq(index)}
                 className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
               >
-                <h3 className="text-lg font-semibold text-gray-900">{faq.question}</h3>
-                <motion.div animate={{ rotate: expandedFaq === index ? 180 : 0 }} transition={{ duration: 0.3 }}>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {faq.question}
+                </h3>
+                <motion.div
+                  animate={{ rotate: expandedFaq === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <ChevronDown className="w-5 h-5 text-gray-500" />
                 </motion.div>
               </button>
@@ -91,7 +98,9 @@ export default function FAQSection() {
                     className="overflow-hidden"
                   >
                     <div className="px-6 pb-4">
-                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                      <p className="text-gray-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
                     </div>
                   </motion.div>
                 )}
@@ -101,5 +110,5 @@ export default function FAQSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

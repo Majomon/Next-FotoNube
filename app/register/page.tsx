@@ -1,29 +1,32 @@
 "use client";
 
-import { registerUser } from "@/actions/auth/register";
+import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function RegisterPage() {
-  const [role, setRole] = useState("photographer");
+  const [role, setRole] = useState<"photographer" | "buyer">("photographer");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+  const { register, user } = useAuthStore();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("HGola");
 
-    const resp = await registerUser({ role, email, password });
-
-    if (resp.error) {
-      alert(resp.error); // O mostrar mensaje
+    const ok = await register(email, password, role);
+    if (!ok) {
+      alert("Hubo un error al registrarse");
       return;
     }
 
     router.push("/");
   };
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 relative">

@@ -1,15 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("mauri.monzon91@gmail.com");
+  const [password, setPassword] = useState("123456");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter();
+  const { login, status, error, user } = useAuthStore();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", { email, password });
+
+    const ok = await login(email, password);
+
+    if (!ok) {
+      alert("Error: " + error);
+      return;
+    }
+
+    router.push("/");
   };
+
+  useEffect(() => {
+    if (user) {
+      console.log("Usuario logueado:", user);
+    }
+  }, [user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 relative">
@@ -30,9 +49,7 @@ export default function LoginPage() {
 
       {/* Contenido centrado */}
       <div className="z-10 bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6">
-          INICIAR SESIÓN/REGISTRARSE
-        </h2>
+        <h2 className="text-2xl font-bold text-center mb-6">INICIAR SESIÓN</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -63,25 +80,14 @@ export default function LoginPage() {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition"
           >
-            ACCEDER/REGISTRARSE
+            ACCEDER
           </button>
-
-          <div className="text-center text-sm text-gray-500">— o —</div>
-
-          <button
-            type="button"
-            className="w-full border flex items-center justify-center gap-2 py-2 rounded-md hover:bg-gray-50"
-          >
-            <img src="/google-logo.svg" alt="Google" className="w-5 h-5" />
-            CONTINUAR CON GOOGLE
-          </button>
-
-          <div className="text-center mt-4">
-            <a href="#" className="text-sm text-blue-600 hover:underline">
-              ¿Olvidaste tu contraseña?
-            </a>
-          </div>
         </form>
+
+        {status === "checking" && <p>Cargando...</p>}
+        {status === "unauthenticated" && error && (
+          <p className="text-red-600">{error}</p>
+        )}
       </div>
     </div>
   );
