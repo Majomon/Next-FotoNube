@@ -29,18 +29,13 @@ export default function RegisterPage() {
   }, [user]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 relative">
-      {/* Fondo con imagen dividida */}
-      <div className="absolute inset-0 grid grid-cols-2">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Imagen de fondo con movimiento suave */}
+      <div className="absolute inset-0">
         <img
-          src="/left-bg.jpg"
-          alt="left"
-          className="w-full h-full object-cover"
-        />
-        <img
-          src="/right-bg.jpg"
-          alt="right"
-          className="w-full h-full object-cover"
+          src="https://fotonube.com/websim/images/fondo-imagen-FOTONUBE-eventos.jpg"
+          alt="Fondo Fotonube"
+          className="w-full h-full object-cover animate-float-bg"
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>

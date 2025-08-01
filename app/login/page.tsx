@@ -2,14 +2,14 @@
 
 import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("mauri.monzon91@gmail.com");
   const [password, setPassword] = useState("123456");
 
   const router = useRouter();
-  const { login, status, error, user } = useAuthStore();
+  const { login, status, error } = useAuthStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,24 +25,19 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 relative">
-      {/* Fondo con imagen dividida */}
-      <div className="absolute inset-0 grid grid-cols-2">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Imagen de fondo con movimiento suave */}
+      <div className="absolute inset-0">
         <img
-          src="/left-bg.jpg"
-          alt="left"
-          className="w-full h-full object-cover"
-        />
-        <img
-          src="/right-bg.jpg"
-          alt="right"
-          className="w-full h-full object-cover"
+          src="https://fotonube.com/websim/images/fondo-imagen-FOTONUBE-eventos.jpg"
+          alt="Fondo Fotonube"
+          className="w-full h-full object-cover animate-float-bg"
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      {/* Contenido centrado */}
-      <div className="z-10 bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
+      {/* Formulario animado */}
+      <div className="z-10 bg-white rounded-xl shadow-lg p-8 w-full max-w-md animate-fade-in-up">
         <h2 className="text-2xl font-bold text-center mb-6">INICIAR SESIÓN</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
