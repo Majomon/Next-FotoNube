@@ -38,7 +38,7 @@ export const authLogin = async (
 
     console.log(data);
 
-    Cookies.set("token", data.access_token, {
+    Cookies.set("token", data.response.access_token, {
       expires: 1,
       path: "/",
       secure: true,
