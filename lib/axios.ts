@@ -9,15 +9,6 @@ const claraApi = axios.create({
   withCredentials: true,
 });
 
-claraApi.interceptors.request.use((config) => {
-  const token = getTokenFromCookies(); // lee de cookies
-  if (token) {
-    config.headers = {
-      ...config.headers,
-      Authorization: `Bearer ${token}`,
-    };
-  }
-  return config;
-});
+claraApi.interceptors.request.use((config) => config);
 
 export default claraApi;
