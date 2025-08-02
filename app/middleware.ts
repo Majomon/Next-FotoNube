@@ -8,6 +8,8 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
 
+  console.log("Token:", token);
+
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }

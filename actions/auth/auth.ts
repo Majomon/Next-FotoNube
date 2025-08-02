@@ -35,6 +35,8 @@ export const authLogin = async (
       password,
     });
 
+    console.log(data);
+
     return { success: true, data: data.response };
   } catch (error: any) {
     const message =
