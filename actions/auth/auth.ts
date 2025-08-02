@@ -18,13 +18,13 @@ export const authRegister = async (
       role,
     });
 
-    Cookies.set("token", data.access_token, {
+    /*    Cookies.set("token", data.access_token, {
       expires: 1,
       path: "/",
       secure: true,
       sameSite: "strict",
     });
-
+ */
     return { success: true, data: data.response };
   } catch (error: any) {
     const message =
@@ -38,10 +38,11 @@ export const authLogin = async (
   password: string
 ): Promise<AuthResult> => {
   try {
-    const { data } = await claraApi.post("/auth/login", {
-      email,
-      password,
-    });
+    const { data } = await claraApi.post(
+      "/auth/login",
+      { email, password },
+      { withCredentials: true }
+    );
 
     console.log(data);
 
