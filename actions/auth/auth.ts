@@ -1,5 +1,6 @@
 import claraApi from "@/lib/axios";
 import { UserResponse } from "@/interfaces/auth/login.interface";
+import Cookies from "js-cookie"; // asegurate de tenerlo
 
 type AuthResult =
   | { success: true; data: UserResponse }
@@ -15,6 +16,13 @@ export const authRegister = async (
       email,
       password,
       role,
+    });
+
+    Cookies.set("token", data.access_token, {
+      expires: 1,
+      path: "/",
+      secure: true,
+      sameSite: "strict",
     });
 
     return { success: true, data: data.response };
