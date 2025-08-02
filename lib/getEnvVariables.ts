@@ -1,3 +1,3 @@
 export const getEnvVariables = () => ({
-  API_URL: process.env.NEXT_PUBLIC_LOCAL || "", // ahora sí coincide
+  API_URL: process.env.NEXT_PUBLIC_API_URL!,
 });
