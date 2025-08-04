@@ -18,6 +18,13 @@ export const authRegister = async (
       role,
     });
 
+    Cookies.set("token", data.response.access_token, {
+      expires: 1,
+      path: "/",
+      secure: true,
+      sameSite: "None",
+    });
+
     return { success: true, data: data.response };
   } catch (error: any) {
     const message =
@@ -35,8 +42,6 @@ export const authLogin = async (
       email,
       password,
     });
-
-    console.log(data);
 
     Cookies.set("token", data.response.access_token, {
       expires: 1,
