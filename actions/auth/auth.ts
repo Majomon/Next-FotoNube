@@ -1,6 +1,6 @@
 import claraApi from "@/lib/axios";
 import { UserResponse } from "@/interfaces/auth/login.interface";
-import Cookies from "js-cookie"; // asegurate de tenerlo
+import Cookies from "js-cookie";
 
 type AuthResult =
   | { success: true; data: UserResponse }

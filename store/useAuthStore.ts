@@ -1,6 +1,7 @@
 import { authLogin, authRegister } from "@/actions/auth/auth";
 import { UserResponse } from "@/interfaces/auth/login.interface";
 import { create } from "zustand";
+import Cookies from "js-cookie";
 
 type AuthStatus = "authenticated" | "unauthenticated" | "checking";
 
@@ -51,7 +52,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     return true;
   },
 
-  logout: () => {
+  logout: async () => {
+    Cookies.remove("token");
     set({ user: undefined, status: "unauthenticated", error: undefined });
     // si usás cookies, podés hacer claraApi.post('/auth/logout') acá
   },
