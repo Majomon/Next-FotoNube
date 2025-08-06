@@ -11,7 +11,7 @@ import TestimonialsSection from "@/components/testimonials-section";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pt-20">
       <Header />
 
       <HeroCarousel />

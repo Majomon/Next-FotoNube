@@ -98,7 +98,7 @@ export default function HeroCarousel() {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 z-30 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 group"
+        className="absolute hidden  left-4 md:left-8 top-1/2 transform -translate-y-1/2 z-30 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full md:flex items-center justify-center backdrop-blur-sm transition-all duration-300 group"
         onMouseEnter={() => setIsAutoPlaying(false)}
         onMouseLeave={() => setIsAutoPlaying(true)}
       >
@@ -107,7 +107,7 @@ export default function HeroCarousel() {
 
       <button
         onClick={nextSlide}
-        className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-30 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 group"
+        className="absolute hidden right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-30 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full md:flex items-center justify-center backdrop-blur-sm transition-all duration-300 group"
         onMouseEnter={() => setIsAutoPlaying(false)}
         onMouseLeave={() => setIsAutoPlaying(true)}
       >
@@ -142,10 +142,6 @@ export default function HeroCarousel() {
             </p>
 
             <div className="pt-4">
-              <p className="text-sm uppercase tracking-wider mb-6 opacity-90">
-                GRATIS POR
-              </p>
-
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

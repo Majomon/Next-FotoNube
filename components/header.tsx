@@ -72,22 +72,14 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <Button
               variant="ghost"
-              size="sm"
+              size="lg"
               className="md:hidden"
               onClick={() => setMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? (
-                <X
-                  className={`w-6 h-6 ${
-                    scrolled ? "text-gray-900" : "text-white"
-                  }`}
-                />
+                <X className="w-10 h-10 text-gray-900" />
               ) : (
-                <Menu
-                  className={`w-6 h-6 ${
-                    scrolled ? "text-gray-900" : "text-white"
-                  }`}
-                />
+                <Menu className="w-10 h-10 text-gray-900" />
               )}
             </Button>
           </div>
