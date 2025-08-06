@@ -100,7 +100,7 @@ export default function HowItWorksSection() {
                   ></div>
 
                   {/* Step Number */}
-                  <div className="flex items-start space-x-6">
+                  <div className="flex flex-col items-center space-y-6 md:flex-row lg:items-start">
                     <motion.div
                       whileHover={{ scale: 1.1 }}
                       className={`flex-shrink-0 w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg`}
@@ -136,9 +136,9 @@ export default function HowItWorksSection() {
                         duration: 2,
                         repeat: Number.POSITIVE_INFINITY,
                       }}
-                      className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 lg:hidden"
+                      className="absolute bottom left-1/2 transform -translate-x-1/2 lg:hidden"
                     >
-                      <div className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gray-200 rounded-full shadow-lg flex items-center justify-center">
                         <ArrowRight className="w-4 h-4 text-cyan-500 rotate-90" />
                       </div>
                     </motion.div>
