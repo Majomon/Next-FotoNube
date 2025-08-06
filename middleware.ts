@@ -9,50 +9,38 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
 
   const isAuthPage = url.pathname === "/login" || url.pathname === "/register";
-  const isProtectedPage =
-    url.pathname.startsWith("/profile") ||
-    url.pathname.startsWith("/dashboard");
+  const isProtectedPage = url.pathname.startsWith("/dashboard");
 
   if (!token) {
-    // No token
     if (isProtectedPage) {
-      // Quieren acceder a zona protegida sin token -> redirigir a login
       console.log("No token, redirigiendo a login");
       url.pathname = "/login";
       return NextResponse.redirect(url);
     }
-    // No token y no zona protegida -> dejar pasar (por ej /login o /register)
-    return NextResponse.next();
+    return NextResponse.next(); // ruta pública sin token
   }
 
-  // Si hay token, verifico validez
   try {
     await jwtVerify(token, secret);
 
     // Token válido
-
     if (isAuthPage) {
-      // Si está logueado y quiere ir a login o register, lo mando al dashboard
       url.pathname = "/dashboard";
       return NextResponse.redirect(url);
     }
 
-    // Si accede a zona protegida o cualquier otra ruta, dejar pasar
-    return NextResponse.next();
+    return NextResponse.next(); // token válido y ruta permitida
   } catch (error) {
     // Token inválido
-
     if (isProtectedPage) {
-      // Si token inválido y quieren zona protegida, redirigir a login
       url.pathname = "/login";
       return NextResponse.redirect(url);
     }
 
-    // Token inválido pero quieren ir a login o register o ruta pública -> dejar pasar
-    return NextResponse.next();
+    return NextResponse.next(); // token inválido pero en ruta pública
   }
 }
 
 export const config = {
-  matcher: ["/login", "/register", "/profile/:path*", "/dashboard/:path*"],
+  matcher: ["/login", "/register", "/dashboard/:path*"],
 };

@@ -1,7 +1,8 @@
-import React from "react";
-
-const DashboardScreen = () => {
-  return <div>Dashboard</div>;
-};
-
-export default DashboardScreen;
+export default function DashboardHome() {
+  return (
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Bienvenido al panel</h1>
+      <p>Selecciona una opción del menú para comenzar.</p>
+    </div>
+  );
+}
