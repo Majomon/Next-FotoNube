@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAppStore } from "@/store/store";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Header() {
   const { isMenuOpen, setMenuOpen } = useAppStore();
@@ -36,16 +36,22 @@ export default function Header() {
         }`}
       >
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-2"
-            >
-              <div className="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center">
-                <Camera className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-gray-900">FOTONUBE</span>
-            </motion.div>
+          <div className="flex items-center justify-between cursor-pointer">
+            <Link href="/">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center space-x-2"
+              >
+                <img
+                  src="/logoTop.png"
+                  alt="Logo Fotonube"
+                  className="w-full h-full rounded-full"
+                />
+                <span className="text-xl font-bold text-gray-900">
+                  FOTONUBE
+                </span>
+              </motion.div>
+            </Link>
 
             {/* Desktop Menu */}
             <nav className="hidden md:flex items-center space-x-8">

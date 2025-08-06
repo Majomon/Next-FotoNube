@@ -1,29 +1,29 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Upload, Eye, Star } from "lucide-react"
+import { motion } from "framer-motion";
+import { ShoppingCart, School, Users } from "lucide-react";
 
 export default function FeaturesSection() {
   const features = [
     {
-      icon: Upload,
-      title: "Sube las fotos en línea",
+      icon: ShoppingCart,
+      title: "Vende tus fotos en línea",
       description:
-        "Con FOTONUBE puedes publicar y vender las fotos de manera rápida desde tu teléfono, tableta o computadora de escritorio.",
+        "Con FOTONUBE puedes publicar y vender tus fotografías, no importa si eres un fotógrafo aficionado, o tienes un gran estudio de fotografía.",
     },
     {
-      icon: Eye,
-      title: "Multiplica las ventas de fotos",
+      icon: Users,
+      title: "Multiplica tus ventas de fotos",
       description:
-        "Los álbumes de FOTONUBE se posicionan mejor en los buscadores, los clientes buscarán específicamente las fotos que les gusten y las comprarán online.",
+        "Los álbumes de FOTONUBE te permiten mostrar simultáneamente tus fotos a múltiples potenciales compradores, dando lugar a una mayor cantidad de ventas proyectadas.",
     },
     {
-      icon: Star,
-      title: "Fotos populares",
+      icon: School,
+      title: "Fotos escolares",
       description:
-        "Puedes crear cuentas con descuentos especiales para tus clientes que puedan utilizar al momento de pagar por sus fotos en línea.",
+        "Puedes crear cupones con descuentos especiales para tus clientes que podrán utilizar al momento de pagar en línea sus pedidos de fotos.",
     },
-  ]
+  ];
 
   return (
     <section className="py-20 bg-gray-900 text-white">
@@ -44,12 +44,16 @@ export default function FeaturesSection() {
               >
                 <feature.icon className="w-8 h-8 text-white" />
               </motion.div>
-              <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-              <p className="text-gray-300 leading-relaxed">{feature.description}</p>
+              <div className="h-52 px-10 py-8 bg-gray-800 rounded-lg shadow-lg">
+                <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
+                <p className="text-gray-300 leading-relaxed text-lg">
+                  {feature.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
