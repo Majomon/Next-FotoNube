@@ -20,11 +20,11 @@ export default function Header() {
   }, []); */
 
   const menuItems = [
-    "SOBRE FOTONUBE",
-    "PREGUNTAS FRECUENTES",
-    "CONTACTO",
-    "REGISTRARSE",
-    "INICIAR SESIÓN",
+    { text: "Sobre FOTONUBE", href: "#descubre-fotonube" },
+    { text: "Preguntas Frecuentes", href: "#faqs" },
+    { text: "Contacto", href: "#footer" },
+    { text: "Registrarse", href: "/register" },
+    { text: "Iniciar Sesión", href: "/login" },
   ];
 
   return (
@@ -54,22 +54,19 @@ export default function Header() {
             </Link>
 
             {/* Desktop Menu */}
-            <nav className="hidden md:flex items-center space-x-8">
-              {menuItems.map((item) => {
-                let href = "#";
-                if (item === "INICIAR SESIÓN") href = "/login";
-                else if (item === "REGISTRARSE") href = "/register";
-
-                return (
-                  <Link
-                    key={item}
-                    href={href}
-                    className="text-sm font-medium transition-colors text-gray-700 hover:text-cyan-600"
-                  >
-                    {item}
-                  </Link>
-                );
-              })}
+            <nav className="hidden md:flex ">
+              <ul className="flex items-center space-x-6">
+                {menuItems.map((link, index) => (
+                  <motion.li key={index} whileHover={{ x: 5 }}>
+                    <motion.a
+                      href={link.href}
+                      className="text-sm font-medium transition-colors text-gray-700 hover:text-cyan-600"
+                    >
+                      {link.text}
+                    </motion.a>
+                  </motion.li>
+                ))}
+              </ul>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -104,24 +101,18 @@ export default function Header() {
                 exit={{ opacity: 0, height: 0 }}
                 className="md:hidden mt-4 pb-4"
               >
-                {menuItems.map((item) => {
-                  let href = "#";
-                  if (item === "INICIAR SESIÓN") href = "/login";
-                  else if (item === "REGISTRARSE") href = "/register";
-
-                  return (
-                    <Link
-                      key={item}
-                      href={href}
-                      className={`block py-2 text-sm font-medium ${
-                        scrolled ? "text-gray-700" : "text-white"
-                      }`}
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      {item}
-                    </Link>
-                  );
-                })}
+                <ul className="space-y-2">
+                  {menuItems.map((link, index) => (
+                    <motion.li key={index} whileHover={{ x: 5 }}>
+                      <motion.a
+                        href={link.href}
+                        className="block py-2 text-sm font-medium text-gray-700"
+                      >
+                        {link.text}
+                      </motion.a>
+                    </motion.li>
+                  ))}
+                </ul>
               </motion.nav>
             )}
           </AnimatePresence>

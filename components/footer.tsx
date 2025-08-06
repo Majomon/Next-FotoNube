@@ -12,10 +12,11 @@ import {
 
 export default function Footer() {
   const navigationLinks = [
-    "Inicio",
-    "Sobre FOTONUBE",
-    "Preguntas Frecuentes",
-    "Contacto",
+    { text: "Inicio", href: "#" },
+    { text: "Sobre FOTONUBE", href: "#descubre-fotonube" },
+    { text: "Testimonios", href: "#testimonials" },
+    { text: "Preguntas Frecuentes", href: "#faqs" },
+    { text: "Contacto", href: "#" },
   ];
 
   const contactInfo = [
@@ -30,7 +31,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white py-16">
+    <footer className="bg-gray-900 text-white py-8" id="footer">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Logo and Description */}
@@ -68,11 +69,11 @@ export default function Footer() {
               {navigationLinks.map((link, index) => (
                 <li key={index}>
                   <motion.a
-                    href="#"
+                    href={link.href}
                     whileHover={{ x: 5 }}
                     className="text-gray-400 hover:text-white transition-colors text-sm"
                   >
-                    {link}
+                    {link.text}
                   </motion.a>
                 </li>
               ))}
@@ -132,11 +133,43 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="border-t border-gray-800 mt-12 pt-8 text-center"
+          className="border-t border-gray-800 mt-12 pt-8 text-center space-y-2"
         >
           <p className="text-gray-400 text-sm">
             © Copyright FOTONUBE. All Rights Reserved.
           </p>
+
+          <div className="flex justify-center space-x-4 text-sm">
+            <a
+              href="https://www.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              Términos del servicio
+            </a>
+            <span className="text-gray-500">|</span>
+            <a
+              href="https://www.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              Política de privacidad
+            </a>
+          </div>
+
+          {/*           <p className="text-gray-500 text-sm mt-2">
+            Desarrollado por{" "}
+            <a
+              href="https://www.linkedin.com/in/mauricio-monzon/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-500 hover:underline"
+            >
+              Mauricio Monzon
+            </a>
+          </p> */}
         </motion.div>
       </div>
     </footer>

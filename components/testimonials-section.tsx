@@ -46,23 +46,25 @@ export default function InfiniteAutoCarousel() {
     const track = trackRef.current;
     if (!track) return;
 
-    let animationFrameId: number;
+    const speed = 1; // píxeles por tick
+    const interval = 35; // milisegundos (≈50 veces por segundo → 50px/s)
 
-    const scroll = () => {
+    const id = setInterval(() => {
       if (track.scrollLeft >= track.scrollWidth / 2) {
         track.scrollLeft = 0;
       } else {
-        track.scrollLeft += 1;
+        track.scrollLeft += speed;
       }
-      animationFrameId = requestAnimationFrame(scroll);
-    };
+    }, interval);
 
-    animationFrameId = requestAnimationFrame(scroll);
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => clearInterval(id);
   }, []);
 
   return (
-    <section className="relative w-full py-16 bg-white overflow-hidden">
+    <section
+      className="relative w-full py-16 bg-white overflow-hidden"
+      id="testimonials"
+    >
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-10 text-gray-900">
           Testimonios
@@ -75,14 +77,14 @@ export default function InfiniteAutoCarousel() {
           <div
             ref={trackRef}
             className="flex gap-6 overflow-hidden"
-            style={{ scrollBehavior: "smooth" }}
+            /*     style={{ scrollBehavior: "smooth" }} */
           >
             {[...testimonials, ...testimonials].map((item, idx) => (
               <div
                 key={idx}
-                className="flex-shrink-0 w-[90%] sm:w-[50%] lg:w-[30%]"
+                className="flex-shrink-0 w-[90%] sm:w-[50%] lg:w-[40%]"
               >
-                <div className="w-full h-[450px] lg:h-96 bg-gray-50 p-6 rounded-lg shadow text-center mx-2 flex flex-col justify-between">
+                <div className="w-full h-[450px] lg:h-[450px] bg-gray-50 p-6 rounded-lg shadow text-center mx-2 flex flex-col justify-between items-center">
                   <div className="flex justify-center mb-4">
                     <Image
                       src={item.avatar}
@@ -92,7 +94,7 @@ export default function InfiniteAutoCarousel() {
                       className="object-cover w-40 h-40 rounded-full ring-2 ring-cyan-200"
                     />
                   </div>
-                  <p className="italic text-gray-700 mb-4 text-sm">
+                  <p className="italic text-gray-700 mb-4 text-lg">
                     "{item.text}"
                   </p>
                   <div className="flex justify-center mb-2 space-x-1">

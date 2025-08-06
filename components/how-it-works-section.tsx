@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Upload, Settings, DollarSign, Users, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { motion } from "framer-motion";
+import { Upload, Settings, DollarSign, Users, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function HowItWorksSection() {
   const steps = [
@@ -39,7 +40,7 @@ export default function HowItWorksSection() {
         "Los clientes compran directamente desde la plataforma. Recibe pagos seguros y automáticos por cada venta.",
       color: "from-pink-500 to-red-600",
     },
-  ]
+  ];
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-cyan-50 relative overflow-hidden">
@@ -75,7 +76,8 @@ export default function HowItWorksSection() {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            En solo 4 pasos simples, transforma tu trabajo fotográfico en una fuente de ingresos constante
+            En solo 4 pasos simples, transforma tu trabajo fotográfico en una
+            fuente de ingresos constante
           </p>
         </motion.div>
 
@@ -115,10 +117,14 @@ export default function HowItWorksSection() {
                         >
                           <step.icon className="w-full h-full" />
                         </motion.div>
-                        <h3 className="text-2xl font-bold text-gray-900">{step.title}</h3>
+                        <h3 className="text-2xl font-bold text-gray-900">
+                          {step.title}
+                        </h3>
                       </div>
 
-                      <p className="text-gray-600 leading-relaxed text-lg">{step.description}</p>
+                      <p className="text-gray-600 leading-relaxed text-lg">
+                        {step.description}
+                      </p>
                     </div>
                   </div>
 
@@ -126,7 +132,10 @@ export default function HowItWorksSection() {
                   {index < steps.length - 1 && (
                     <motion.div
                       animate={{ x: [0, 10, 0] }}
-                      transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                      transition={{
+                        duration: 2,
+                        repeat: Number.POSITIVE_INFINITY,
+                      }}
                       className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 lg:hidden"
                     >
                       <div className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
@@ -172,37 +181,51 @@ export default function HowItWorksSection() {
                 ¿Listo para empezar a generar ingresos?
               </h3>
               <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Únete a miles de fotógrafos que ya están monetizando su trabajo con FOTONUBE
+                Únete a miles de fotógrafos que ya están monetizando su trabajo
+                con FOTONUBE
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button
-                    size="lg"
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    href="/register"
                     className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg"
                   >
                     Comenzar Gratis
-                  </Button>
+                  </Link>
                 </motion.div>
 
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-2 border-gray-300 text-gray-700 hover:border-cyan-500 hover:text-cyan-600 px-8 py-4 rounded-full text-lg font-semibold bg-transparent"
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <a
+                    href="https://www.youtube.com/@fotonubeARG"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    Ver Demo
-                  </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="border-2 border-gray-300 text-gray-700 hover:border-cyan-500 hover:text-cyan-600 px-8 py-4 rounded-full text-lg font-semibold bg-transparent"
+                    >
+                      Ver Demo
+                    </Button>
+                  </a>
                 </motion.div>
               </div>
 
               <p className="text-sm text-gray-500 mt-4">
-                Sin tarjeta de crédito • Configuración en 5 minutos • Soporte 24/7
+                Sin tarjeta de crédito • Configuración en 5 minutos • Soporte
+                24/7
               </p>
             </motion.div>
           </div>
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
