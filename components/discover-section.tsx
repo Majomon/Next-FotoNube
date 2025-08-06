@@ -1,7 +1,14 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Camera, Share2, ImageIcon, Smartphone, CreditCard, Users } from "lucide-react"
+import { motion } from "framer-motion";
+import {
+  Camera,
+  Share2,
+  ImageIcon,
+  Smartphone,
+  CreditCard,
+  Users,
+} from "lucide-react";
 
 export default function DiscoverSection() {
   const features = [
@@ -41,10 +48,10 @@ export default function DiscoverSection() {
       description:
         "Uno de los puntos que más te va a FOTONUBE es que desarrollado para que se adapte perfectamente a cualquier dispositivo móvil, tableta o computadora, permitiendo el acceso desde cualquier plataforma.",
     },
-  ]
+  ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gray-50" id="descubre-fotonube">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -53,10 +60,12 @@ export default function DiscoverSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">DESCUBRE FOTONUBE</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            DESCUBRE FOTONUBE
+          </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Conoce las funciones que ofrece FOTONUBE que convertirá tu cámara fotográfica en una forma de monetización y
-            trabajo como fotógrafo.
+            Conoce las funciones que ofrece FOTONUBE que convertirá tu cámara
+            fotográfica en una forma de monetización y trabajo como fotógrafo.
           </p>
         </motion.div>
 
@@ -77,12 +86,16 @@ export default function DiscoverSection() {
               >
                 <feature.icon className="w-6 h-6 text-cyan-600" />
               </motion.div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {feature.description}
+              </p>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

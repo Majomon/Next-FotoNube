@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -13,10 +14,10 @@ export default function HeroCarousel() {
   const slides = [
     {
       id: 1,
-      title: "¡Organiza fácilmente tu trabajo diario con FOTONUBE!",
+      title: "¡Con FOTONUBE puedes mostrar y vender tus fotos en línea!",
       subtitle:
-        "Crea múltiples usuarios de Tu FOTONUBE para que puedas delegar la gestión y administración de tus álbumes online. Puedes listar los pedidos de un evento para organizar la producción y entrega de las fotos.",
-      image: "/hero-slide-1.webp",
+        "No importa si eres un fotógrafo aficionado, si formas parte de un equipo profesional de fotógrafos o tienes un gran estudio de fotografía profesional.",
+      image: "/carousel/hero-slide-1.webp",
       cta: "DESCUBRE FOTONUBE",
     },
     {
@@ -24,29 +25,28 @@ export default function HeroCarousel() {
       title:
         "Con FOTONUBE puedes publicar fácilmente las fotos de los eventos que cubres.",
       subtitle:
-        "Puedes publicar álbumes de fotos de los eventos deportivos, corporativos o sociales que cubras para mostrarlas y venderlas fácilmente en línea.",
-      image: "/hero-slide-2.webp",
+        "Puedes publicar álbumes de fotos de los eventos deportivos, corporativos o sociales que cubras para mostrarlos y venderlos fácilmente on-line.",
+      image: "/carousel/hero-slide-2.webp",
       cta: "DESCUBRE FOTONUBE",
     },
     {
       id: 3,
-      title: "Publica en FOTONUBE las fotos escolares",
+      title: "Publica en FOTONUBE las fotos escolares.",
       subtitle:
         "El sobre para cobrar las fotos del colegio ¡No va más! tus clientes pagan sus pedidos de fotos online, a través de FOTONUBE.",
-      image: "/hero-slide-3.webp",
+      image: "/carousel/hero-slide-3.webp",
       cta: "DESCUBRE FOTONUBE",
     },
     {
       id: 4,
-      title: "¡Con FOTONUBE puedes mostrar y vender tus fotos en línea!",
+      title: "Compra en FOTONUBE las fotos de ese evento inolvidable.",
       subtitle:
-        "No importa si eres un fotógrafo aficionado, si formas parte de un equipo profesional de fotógrafos o tienes un gran estudio de fotografía profesional.",
-      image: "/hero-slide-4.webp",
+        "Reviví los mejores momentos de la fiesta, compra y paga en línea tus fotos",
+      image: "/carousel/hero-slide-4.webp",
       cta: "DESCUBRE FOTONUBE",
     },
   ];
 
-  // Auto-play functionality
   useEffect(() => {
     if (!isAutoPlaying) return;
 
@@ -150,12 +150,14 @@ export default function HeroCarousel() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button
-                  size="lg"
-                  className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  {slides[currentSlide].cta}
-                </Button>
+                <a href={"#descubre-fotonube"}>
+                  <Button
+                    size="lg"
+                    className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    {slides[currentSlide].cta}
+                  </Button>
+                </a>
               </motion.div>
             </div>
           </motion.div>
