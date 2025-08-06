@@ -74,25 +74,27 @@ export default function InfiniteAutoCarousel() {
 
           <div
             ref={trackRef}
-            className="flex gap-6 overflow-hidden whitespace-nowrap"
+            className="flex gap-6 overflow-hidden"
             style={{ scrollBehavior: "smooth" }}
           >
             {[...testimonials, ...testimonials].map((item, idx) => (
               <div
                 key={idx}
-                className="flex-shrink-0 w-[90%] sm:w-[50%] lg:w-[33.3333%]"
+                className="flex-shrink-0 w-[90%] sm:w-[50%] lg:w-[30%]"
               >
-                <div className="bg-gray-50 p-6 rounded-lg shadow text-center mx-2">
+                <div className="w-full h-[450px] lg:h-96 bg-gray-50 p-6 rounded-lg shadow text-center mx-2 flex flex-col justify-between">
                   <div className="flex justify-center mb-4">
                     <Image
                       src={item.avatar}
                       alt={item.name}
                       width={80}
                       height={80}
-                      className="rounded-full ring-4 ring-cyan-200"
+                      className="object-cover w-40 h-40 rounded-full ring-2 ring-cyan-200"
                     />
                   </div>
-                  <p className="italic text-gray-700 mb-4">"{item.text}"</p>
+                  <p className="italic text-gray-700 mb-4 text-sm">
+                    "{item.text}"
+                  </p>
                   <div className="flex justify-center mb-2 space-x-1">
                     {Array.from({ length: item.rating }).map((_, i) => (
                       <Star
