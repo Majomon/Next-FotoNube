@@ -11,32 +11,32 @@ export default function FAQSection() {
     {
       question: "¿Qué es FOTONUBE?",
       answer:
-        "FOTONUBE es una plataforma online diseñada especialmente para publicar, vender y distribuir fotos de eventos de manera rápida y sencilla. Permite a los fotógrafos profesionales de fotografía en línea para generar ingresos de fotografía profesional.",
+        "FOTONUBE es una plataforma ecommerce diseñada especialmente para publicar, vender y cobrar en línea la venta de fotos. FOTONUBE es útil para fotógrafos aficionados o independientes, para equipos profesionales de fotógrafos o bien para grandes estudios de fotografía profesional.",
     },
     {
       question: "¿Cómo puedo usar FOTONUBE?",
       answer:
-        "Solo necesitas un correo electrónico para crear una cuenta gratuita y subir tus fotos de eventos en tu cuenta FOTONUBE. Puedes crear álbumes de fotos, configurar precios y comenzar a vender inmediatamente.",
+        "Para usar FOTONUBE sólo tienes que registrarte como usuario y ya puedes usar la plataforma en su versión Free, con un límite de 2GB de almacenamiento en la nube y puedes publicar hasta 1 álbum de fotos para comercializar.Tene en cuenta que en la versión FOTONUBE Free se cobra un 4,99% de comisión por transacción.",
     },
     {
       question: "¿Qué necesito para empezar a usar FOTONUBE?",
       answer:
-        "Solo necesitas un correo electrónico para crear una cuenta gratuita y subir tus fotos de eventos. La plataforma es muy intuitiva y fácil de usar, no necesitas conocimientos técnicos avanzados.",
+        "Sólo necesitas un correo electrónico para registrarte y establecer una contraseña, para suscribir a FOTONUBE Free. Luego puedes ingresar a tu panel de control y crear tu primer álbum de fotos.",
     },
     {
       question: "FOTONUBE - ¿tiene costo?",
       answer:
-        "FOTONUBE ofrece un plan gratuito para comenzar. Tenemos diferentes planes de suscripción con características adicionales. Puedes comenzar gratis y actualizar cuando necesites más funcionalidades.",
+        "FOTONUBE, cuenta con una versión Free que es de uso gratuito, brinda 2 GB de espacio en la nube, para alojar fotos, y la posibilidad de publicar hasta 1 álbum para comercializar, en esta versión se cobra un 4,99% de comisión por transacción. También contamos con la versión FOTONUBE Pro, que es de pago y ofrece 30 GB de espacio en la nube y publicación ilimitadas de álbumes, en esta versión se cobra un 1,99% de comisión por transacción.",
     },
     {
       question: "¿Cómo acceden mis clientes a los álbumes?",
       answer:
-        "Tus clientes acceden a diferentes álbumes de fotos mediante links únicos que puedes compartir. También pueden encontrar los álbumes mediante búsquedas en línea, ya que están optimizados para motores de búsqueda.",
+        "Tus clientes acceden a los álbumes a través de links específicos de cada álbum que el sistema genera automáticamente, además tus clientes pueden compartir estos links con familiares y amigos.",
     },
     {
       question: "¿Cómo controlo el servicio de FOTONUBE?",
       answer:
-        "Desde tu panel de control puedes gestionar todos tus álbumes, ver estadísticas de ventas, configurar precios, gestionar clientes y mucho más. Tienes control total sobre tu contenido y ventas.",
+        "Debes registrarte como fotógrafo o comprador de fotos, con tu correo electrónico más una contraseña, y ¡listo! ya puedes usar la versión FOTONUBE Free. Luego, si la herramienta te fue útil, puedes suscribir a la versión FOTONUBE pro (de pago).",
     },
   ];
 
