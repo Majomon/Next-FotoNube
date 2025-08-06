@@ -7,7 +7,8 @@ import {
   ImageIcon,
   Smartphone,
   CreditCard,
-  Users,
+  Lock,
+  BadgeDollarSign,
 } from "lucide-react";
 
 export default function DiscoverSection() {
@@ -16,37 +17,37 @@ export default function DiscoverSection() {
       icon: Camera,
       title: "Fotos y ventas en línea",
       description:
-        "Publica tus álbumes en línea para que los clientes puedan ver las fotos de su evento social y venderlas fácilmente desde FOTONUBE.",
+        "Podrás crear un álbum en línea con todas las fotos de un evento, ya sea deportivo, corporativo o social y venderlas fácilmente desde FOTONUBE.",
     },
     {
       icon: Share2,
       title: "Multiplica ventas",
       description:
-        "Los álbumes de fotos de eventos que subas a FOTONUBE aparecerán en los buscadores, desarrollando así fotos y múltiples potenciales compradores que buscan fotos online de eventos específicos.",
+        "Los álbumes en línea de eventos que subes a FOTONUBE te permiten mostrar simultáneamente las fotos a múltiples potenciales compradores, dando lugar a una mayor cantidad de ventas proyectadas.",
     },
     {
       icon: ImageIcon,
-      title: "Fotos ocasionales deportivas",
+      title: "Fotos escolares/deportivas",
       description:
-        'Con la función "Fotos ocasionales" puedes subir fotos de eventos deportivos que hayas cubierto para que los clientes puedan encontrar fácilmente las fotos.',
+        "Con la función “Carpetas escolares” deja atrás el viejo sistema de pago en efectivo por sobre, utilizado para las fotos anuales de colegios (foto retrato + foto grupal).",
     },
     {
       icon: CreditCard,
       title: "Gestión de álbumes",
       description:
-        "FOTONUBE te permite crear múltiples álbumes online para que puedas clasificar las fotos de diferentes eventos y que los clientes puedan encontrar fácilmente las fotos que buscan.",
+        "FOTONUBE te permite crear múltiples administradores para que puedas delegar la gestión y administración de tus álbumes en línea.",
     },
     {
-      icon: Smartphone,
-      title: "Acceso multiplataforma",
+      icon: Lock,
+      title: "Acceso restringido",
       description:
-        "Cada uno de los álbumes que crees en FOTONUBE pueden ser vistos desde cualquier dispositivo móvil, tableta o computadora, permitiendo que tus clientes puedan ver y comprar las fotos desde cualquier lugar.",
+        "Cada uno de los álbumes que creas en FOTONUBE cuentan con un link de acceso específico, que le enviarás a tus clientes para que puedan acceder al álbum, además de pueden compartirlo con familiares y amigos.",
     },
     {
-      icon: Users,
-      title: "Multi-dispositivo",
+      icon: BadgeDollarSign,
+      title: "Pago 100% en línea",
       description:
-        "Uno de los puntos que más te va a FOTONUBE es que desarrollado para que se adapte perfectamente a cualquier dispositivo móvil, tableta o computadora, permitiendo el acceso desde cualquier plataforma.",
+        "Las ventas de tus fotos pueden ser fácilmente pagadas por tus clientes, a través de Mercado Pago.",
     },
   ];
 
@@ -64,8 +65,8 @@ export default function DiscoverSection() {
             DESCUBRE FOTONUBE
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Conoce las funciones que ofrece FOTONUBE que convertirá tu cámara
-            fotográfica en una forma de monetización y trabajo como fotógrafo.
+            Conoce las funciones que ofrece FOTONUBE que cambiarán para siempre
+            la forma de comercializar tu trabajo como fotógrafo.
           </p>
         </motion.div>
 
