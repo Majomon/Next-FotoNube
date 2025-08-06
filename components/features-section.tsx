@@ -28,7 +28,7 @@ export default function FeaturesSection() {
   return (
     <section className="py-20 bg-gray-900 text-white">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -44,7 +44,7 @@ export default function FeaturesSection() {
               >
                 <feature.icon className="w-8 h-8 text-white" />
               </motion.div>
-              <div className="h-52 px-10 py-8 bg-gray-800 rounded-lg shadow-lg">
+              <div className="lg:h-96 px-10 py-8 bg-gray-800 rounded-lg shadow-lg">
                 <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
                 <p className="text-gray-300 leading-relaxed text-lg">
                   {feature.description}

@@ -60,7 +60,7 @@ export default function Header() {
                   <motion.li key={index} whileHover={{ x: 5 }}>
                     <motion.a
                       href={link.href}
-                      className="text-sm font-medium transition-colors text-gray-700 hover:text-cyan-600"
+                      className="md:text-xs lg:text-sm font-medium transition-colors text-gray-700 hover:text-cyan-600"
                     >
                       {link.text}
                     </motion.a>
