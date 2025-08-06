@@ -1,5 +1,6 @@
+import { getEnvVariables } from "@/lib/getEnvVariables";
 import axios from "axios";
-import { getEnvVariables } from "./getEnvVariables";
+import Cookies from "js-cookie";
 
 const { API_URL } = getEnvVariables();
 
@@ -8,6 +9,15 @@ const claraApi = axios.create({
   withCredentials: true,
 });
 
-claraApi.interceptors.request.use((config) => config);
+// Interceptor para agregar el token como Bearer en Authorization
+claraApi.interceptors.request.use((config) => {
+  const token = Cookies.get("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
 
 export default claraApi;

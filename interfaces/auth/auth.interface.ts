@@ -5,7 +5,7 @@ export interface FormUserRegister {
   role: "photographer" | "buyer";
 }
 
-export interface UserResponse {
+export interface AuthUserResponse {
   access_token: string;
   user: {
     email: string;
