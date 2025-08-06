@@ -47,7 +47,7 @@ export default function InfiniteAutoCarousel() {
     if (!track) return;
 
     const speed = 1; // píxeles por tick
-    const interval = 35; // milisegundos (≈50 veces por segundo → 50px/s)
+    const interval = 50; // milisegundos (≈50 veces por segundo → 50px/s)
 
     const id = setInterval(() => {
       if (track.scrollLeft >= track.scrollWidth / 2) {
@@ -62,7 +62,7 @@ export default function InfiniteAutoCarousel() {
 
   return (
     <section
-      className="relative w-full py-16 bg-white overflow-hidden"
+      className="relative w-full md:w-10/12 mx-auto py-16 bg-white overflow-hidden"
       id="testimonials"
     >
       <div className="container mx-auto px-4">
@@ -71,8 +71,8 @@ export default function InfiniteAutoCarousel() {
         </h2>
 
         <div className="relative">
-          <div className="absolute left-0 top-0 w-16 h-full bg-gradient-to-r from-white to-transparent z-10" />
-          <div className="absolute right-0 top-0 w-16 h-full bg-gradient-to-l from-white to-transparent z-10" />
+          <div className="absolute left-0 top-0 w-2 md:w-16 h-full bg-gradient-to-r from-white to-transparent z-10" />
+          <div className="absolute right-0 top-0 w-2 md:w-16 h-full bg-gradient-to-l from-white to-transparent z-10" />
 
           <div
             ref={trackRef}
@@ -84,7 +84,7 @@ export default function InfiniteAutoCarousel() {
                 key={idx}
                 className="flex-shrink-0 w-[90%] sm:w-[50%] lg:w-[40%]"
               >
-                <div className="w-full h-[450px] lg:h-[450px] bg-gray-50 p-6 rounded-lg shadow text-center mx-2 flex flex-col justify-between items-center">
+                <div className="w-full h-[480px] md:h-[460px] lg:h-[450px] bg-gray-50 p-6 rounded-lg shadow text-center mx-2 flex flex-col justify-between items-center">
                   <div className="flex justify-center mb-4">
                     <Image
                       src={item.avatar}
@@ -94,7 +94,7 @@ export default function InfiniteAutoCarousel() {
                       className="object-cover w-40 h-40 rounded-full ring-2 ring-cyan-200"
                     />
                   </div>
-                  <p className="italic text-gray-700 mb-4 text-lg">
+                  <p className="italic text-gray-700 mb-4 text-sm md:text-base">
                     "{item.text}"
                   </p>
                   <div className="flex justify-center mb-2 space-x-1">
