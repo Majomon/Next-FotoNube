@@ -35,7 +35,7 @@ export default function Header() {
         className={`fixed top-0 w-full transition-all duration-300 bg-white/95 backdrop-blur-md shadow-lg"
         }`}
       >
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-1">
           <div className="flex items-center justify-between cursor-pointer">
             <Link href="/">
               <motion.div
@@ -54,16 +54,20 @@ export default function Header() {
             </Link>
 
             {/* Desktop Menu */}
-            <nav className="hidden md:flex ">
+            <nav className="hidden md:flex">
               <ul className="flex items-center space-x-6">
                 {menuItems.map((link, index) => (
-                  <motion.li key={index} whileHover={{ x: 5 }}>
-                    <motion.a
+                  <motion.li
+                    key={index}
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <Link
                       href={link.href}
                       className="md:text-xs lg:text-sm font-medium transition-colors text-gray-700 hover:text-cyan-600"
                     >
                       {link.text}
-                    </motion.a>
+                    </Link>
                   </motion.li>
                 ))}
               </ul>
@@ -96,12 +100,12 @@ export default function Header() {
                 <ul className="space-y-2">
                   {menuItems.map((link, index) => (
                     <motion.li key={index} whileHover={{ x: 5 }}>
-                      <motion.a
+                      <Link
                         href={link.href}
                         className="block py-2 text-sm font-medium text-gray-700"
                       >
                         {link.text}
-                      </motion.a>
+                      </Link>
                     </motion.li>
                   ))}
                 </ul>
