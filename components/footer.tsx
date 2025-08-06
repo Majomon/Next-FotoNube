@@ -1,22 +1,33 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Camera, Facebook, Twitter, Instagram, Mail, Phone, MapPin } from "lucide-react"
+import { motion } from "framer-motion";
+import {
+  Camera,
+  Facebook,
+  Instagram,
+  Youtube,
+  Mail,
+  MapPin,
+} from "lucide-react";
 
 export default function Footer() {
-  const navigationLinks = ["Inicio", "Sobre FOTONUBE", "Preguntas Frecuentes", "Contacto"]
+  const navigationLinks = [
+    "Inicio",
+    "Sobre FOTONUBE",
+    "Preguntas Frecuentes",
+    "Contacto",
+  ];
 
   const contactInfo = [
-    { icon: Mail, text: "info@fotonube.com" },
-    { icon: Phone, text: "+1 (555) 123-4567" },
-    { icon: MapPin, text: "Ciudad, País" },
-  ]
+    { icon: Mail, text: "hola@fotonube.com" },
+    { icon: MapPin, text: "Buenos Aires, Argentina" },
+  ];
 
   const socialLinks = [
-    { icon: Facebook, href: "#" },
-    { icon: Twitter, href: "#" },
-    { icon: Instagram, href: "#" },
-  ]
+    { icon: Facebook, href: "https://www.facebook.com/FOTONUBE" },
+    { icon: Youtube, href: "https://www.youtube.com/@fotonubeARG" },
+    { icon: Instagram, href: "https://www.instagram.com/fotonubeok" },
+  ];
 
   return (
     <footer className="bg-gray-900 text-white py-16">
@@ -37,8 +48,11 @@ export default function Footer() {
               <span className="text-xl font-bold">FOTONUBE</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
-              FOTONUBE es la plataforma líder para fotógrafos que desean monetizar su trabajo mediante la venta online
-              de fotografías de eventos, bodas y ocasiones especiales.
+              FOTONUBE es una plataforma ecommerce diseñada especialmente para
+              publicar, vender y cobrar en línea la venta de fotos. FOTONUBE es
+              útil para fotógrafos aficionados o independientes, para equipos
+              profesionales de fotógrafos o bien para grandes estudios de
+              fotografía profesional.
             </p>
           </motion.div>
 
@@ -92,13 +106,16 @@ export default function Footer() {
           >
             <h3 className="text-lg font-semibold mb-4">SÍGUENOS</h3>
             <p className="text-gray-400 text-sm mb-4">
-              Mantente al día con las últimas actualizaciones y consejos para fotógrafos.
+              Mantente al día con las últimas actualizaciones y consejos para
+              fotógrafos.
             </p>
             <div className="flex space-x-3">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={index}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -2 }}
                   className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-cyan-500 transition-colors"
                 >
@@ -117,9 +134,11 @@ export default function Footer() {
           viewport={{ once: true }}
           className="border-t border-gray-800 mt-12 pt-8 text-center"
         >
-          <p className="text-gray-400 text-sm">© Copyright FOTONUBE. All Rights Reserved.</p>
+          <p className="text-gray-400 text-sm">
+            © Copyright FOTONUBE. All Rights Reserved.
+          </p>
         </motion.div>
       </div>
     </footer>
-  )
+  );
 }

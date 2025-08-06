@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { Star } from "lucide-react";
 import Image from "next/image";
 
 const testimonials = [
@@ -40,78 +39,74 @@ const testimonials = [
   },
 ];
 
-export default function TestimonialCarousel() {
-  const [index, setIndex] = useState(0);
+export default function InfiniteAutoCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  const next = () => {
-    setIndex((prev) => (prev + 1) % testimonials.length);
-  };
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
 
-  const prev = () => {
-    setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+    let animationFrameId: number;
+
+    const scroll = () => {
+      if (track.scrollLeft >= track.scrollWidth / 2) {
+        track.scrollLeft = 0;
+      } else {
+        track.scrollLeft += 1;
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   return (
-    <section className="w-full bg-white py-16">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold mb-6 text-gray-900">Testimonios</h2>
+    <section className="relative w-full py-16 bg-white overflow-hidden">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-10 text-gray-900">
+          Testimonios
+        </h2>
 
-        <div className="relative max-w-3xl mx-auto">
-          {/* Botones */}
-          <button
-            onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow"
-          >
-            <ChevronLeft />
-          </button>
+        <div className="relative">
+          <div className="absolute left-0 top-0 w-16 h-full bg-gradient-to-r from-white to-transparent z-10" />
+          <div className="absolute right-0 top-0 w-16 h-full bg-gradient-to-l from-white to-transparent z-10" />
 
-          <button
-            onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow"
+          <div
+            ref={trackRef}
+            className="flex gap-6 overflow-hidden whitespace-nowrap"
+            style={{ scrollBehavior: "smooth" }}
           >
-            <ChevronRight />
-          </button>
-
-          {/* Testimonio actual */}
-          <motion.div
-            key={index}
-            initial={{ x: 300 }}
-            animate={{ x: 0 }}
-            exit={{ x: -300 }}
-            transition={{ duration: 0.4 }}
-            className="px-8"
-          >
-            <div className="bg-gray-50 p-6 rounded-lg shadow-md">
-              <div className="flex justify-center mb-4">
-                <Image
-                  src={testimonials[index].avatar}
-                  alt={testimonials[index].name}
-                  width={80}
-                  height={80}
-                  className="rounded-full ring-4 ring-cyan-200"
-                />
-              </div>
-              <p className="italic text-gray-700 mb-4">
-                "{testimonials[index].text}"
-              </p>
-              <div className="flex justify-center space-x-1 mb-2">
-                {Array.from({ length: testimonials[index].rating }).map(
-                  (_, i) => (
-                    <Star
-                      key={i}
-                      className="w-4 h-4 fill-yellow-400 text-yellow-400"
+            {[...testimonials, ...testimonials].map((item, idx) => (
+              <div
+                key={idx}
+                className="flex-shrink-0 w-[90%] sm:w-[50%] lg:w-[33.3333%]"
+              >
+                <div className="bg-gray-50 p-6 rounded-lg shadow text-center mx-2">
+                  <div className="flex justify-center mb-4">
+                    <Image
+                      src={item.avatar}
+                      alt={item.name}
+                      width={80}
+                      height={80}
+                      className="rounded-full ring-4 ring-cyan-200"
                     />
-                  )
-                )}
+                  </div>
+                  <p className="italic text-gray-700 mb-4">"{item.text}"</p>
+                  <div className="flex justify-center mb-2 space-x-1">
+                    {Array.from({ length: item.rating }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                      />
+                    ))}
+                  </div>
+                  <h4 className="font-bold text-gray-900">{item.name}</h4>
+                  <p className="text-sm text-cyan-600">{item.role}</p>
+                </div>
               </div>
-              <h4 className="font-bold text-gray-900">
-                {testimonials[index].name}
-              </h4>
-              <p className="text-sm text-cyan-600">
-                {testimonials[index].role}
-              </p>
-            </div>
-          </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
