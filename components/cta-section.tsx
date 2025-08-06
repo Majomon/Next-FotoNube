@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 export default function CTASection() {
   return (
@@ -20,22 +20,27 @@ export default function CTASection() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold mb-6">Publica y vende tus fotos en línea</h2>
+          <h2 className="text-4xl font-bold mb-6">
+            Publica y vende tus fotos en línea
+          </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Comienza a generar ingresos de manera rápida y vender tus fotos como fotógrafo.
+            Cambia para siempre la forma de mostrar y vender tu trabajo como
+            fotógrafo.
           </p>
 
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-white text-teal-600 hover:bg-gray-100 border-white px-8 py-3 rounded-full text-lg font-semibold"
-            >
-              SUSCRIBIR NEWSLETTER
-            </Button>
+            <a href="#newsletter">
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-white text-teal-600 hover:bg-gray-100 border-white px-8 py-3 rounded-full text-lg font-semibold"
+              >
+                SUSCRIBIR NEWSLETTER
+              </Button>
+            </a>
           </motion.div>
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

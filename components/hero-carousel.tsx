@@ -150,7 +150,7 @@ export default function HeroCarousel() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <a href={"#descubre-fotonube"}>
+                <a href="#descubre-fotonube">
                   <Button
                     size="lg"
                     className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
