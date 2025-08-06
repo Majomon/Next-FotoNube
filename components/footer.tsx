@@ -110,7 +110,7 @@ export default function Footer() {
               Mantente al día con las últimas actualizaciones y consejos para
               fotógrafos.
             </p>
-            <div className="flex space-x-3">
+            <div className="flex space-x-3 md:space-x-6">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={index}
@@ -139,7 +139,7 @@ export default function Footer() {
             © Copyright FOTONUBE. All Rights Reserved.
           </p>
 
-          <div className="flex justify-center space-x-4 text-sm">
+          <div className="flex items-center justify-center space-x-4 text-sm">
             <a
               href="https://www.google.com"
               target="_blank"
@@ -148,7 +148,7 @@ export default function Footer() {
             >
               Términos del servicio
             </a>
-            <span className="text-gray-500">|</span>
+            <span className="w-px h-10 md:h-4 bg-gray-500" />{" "}
             <a
               href="https://www.google.com"
               target="_blank"
