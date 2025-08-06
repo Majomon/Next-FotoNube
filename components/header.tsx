@@ -11,13 +11,13 @@ export default function Header() {
   const { isMenuOpen, setMenuOpen } = useAppStore();
   const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, []); */
 
   const menuItems = [
     "SOBRE FOTONUBE",
@@ -32,8 +32,7 @@ export default function Header() {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 w-full transition-all duration-300 ${
-          scrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-transparent"
+        className={`fixed top-0 w-full transition-all duration-300 bg-white/95 backdrop-blur-md shadow-lg"
         }`}
       >
         <div className="container mx-auto px-4 py-4">
@@ -45,13 +44,7 @@ export default function Header() {
               <div className="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center">
                 <Camera className="w-5 h-5 text-white" />
               </div>
-              <span
-                className={`text-xl font-bold ${
-                  scrolled ? "text-gray-900" : "text-white"
-                }`}
-              >
-                FOTONUBE
-              </span>
+              <span className="text-xl font-bold text-gray-900">FOTONUBE</span>
             </motion.div>
 
             {/* Desktop Menu */}
@@ -65,11 +58,7 @@ export default function Header() {
                   <Link
                     key={item}
                     href={href}
-                    className={`text-sm font-medium transition-colors ${
-                      scrolled
-                        ? "text-gray-700 hover:text-cyan-600"
-                        : "text-white hover:text-cyan-300"
-                    }`}
+                    className="text-sm font-medium transition-colors text-gray-700 hover:text-cyan-600"
                   >
                     {item}
                   </Link>
