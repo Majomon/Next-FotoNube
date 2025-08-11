@@ -44,7 +44,7 @@ export default function FeaturesSection() {
               >
                 <feature.icon className="w-8 h-8 text-white" />
               </motion.div>
-              <div className="lg:h-96 px-10 py-8 bg-gray-800 rounded-lg shadow-lg">
+              <div className="lg:h-72 px-10 py-8 bg-gray-800 rounded-lg shadow-lg">
                 <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
                 <p className="text-gray-300 leading-relaxed text-lg">
                   {feature.description}

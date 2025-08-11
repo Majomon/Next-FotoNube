@@ -2,29 +2,28 @@
 
 import { Button } from "@/components/ui/button";
 import { useAppStore } from "@/store/store";
+import { useAuthStore } from "@/store/useAuthStore";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Header() {
   const { isMenuOpen, setMenuOpen } = useAppStore();
-  const [scrolled, setScrolled] = useState(false);
+  const { user } = useAuthStore();
 
-  /*   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []); */
+  const isLoggedIn = !!user;
 
   const menuItems = [
     { text: "Sobre FOTONUBE", href: "#descubre-fotonube" },
     { text: "Preguntas Frecuentes", href: "#faqs" },
     { text: "Contacto", href: "#footer" },
-    { text: "Registrarse", href: "/register" },
-    { text: "Iniciar Sesión", href: "/login" },
+    ...(!isLoggedIn
+      ? [
+          { text: "Registrarse", href: "/register" },
+          { text: "Iniciar Sesión", href: "/login" },
+        ]
+      : []),
+    ...(isLoggedIn ? [{ text: "Panel", href: "/dashboard" }] : []),
   ];
 
   return (
@@ -56,9 +55,9 @@ export default function Header() {
             {/* Desktop Menu */}
             <nav className="hidden md:flex">
               <ul className="flex items-center space-x-6">
-                {menuItems.map((link, index) => (
+                {menuItems.map((link) => (
                   <motion.li
-                    key={index}
+                    key={link.href}
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
@@ -98,8 +97,8 @@ export default function Header() {
                 className="md:hidden mt-4 pb-4"
               >
                 <ul className="space-y-2">
-                  {menuItems.map((link, index) => (
-                    <motion.li key={index} whileHover={{ x: 5 }}>
+                  {menuItems.map((link) => (
+                    <motion.li key={link.href} whileHover={{ x: 5 }}>
                       <Link
                         href={link.href}
                         className="block py-2 text-sm font-medium text-gray-700"

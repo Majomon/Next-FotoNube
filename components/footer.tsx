@@ -50,10 +50,12 @@ export default function Footer() {
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               FOTONUBE es una plataforma ecommerce diseñada especialmente para
-              publicar, vender y cobrar en línea la venta de fotos. FOTONUBE es
-              útil para fotógrafos aficionados o independientes, para equipos
-              profesionales de fotógrafos o bien para grandes estudios de
-              fotografía profesional.
+              publicar, vender y cobrar en línea la venta de fotos.
+            </p>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              FOTONUBE es útil para fotógrafos aficionados o independientes,
+              para equipos profesionales de fotógrafos o bien para grandes
+              estudios de fotografía profesional.
             </p>
           </motion.div>
 

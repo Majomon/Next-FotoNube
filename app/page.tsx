@@ -2,8 +2,6 @@ import CTASection from "@/components/cta-section";
 import DiscoverSection from "@/components/discover-section";
 import FAQSection from "@/components/faq-section";
 import FeaturesSection from "@/components/features-section";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
 import HeroCarousel from "@/components/hero-carousel";
 import HowItWorksSection from "@/components/how-it-works-section";
 import NewsletterSection from "@/components/newsletter-section";
@@ -11,7 +9,7 @@ import TestimonialsSection from "@/components/testimonials-section";
 
 export default function Home() {
   return (
-    <main className="min-h-screen pt-20">
+    <main className="min-h-screen pt-16">
       <HeroCarousel />
 
       <FeaturesSection />
