@@ -1,8 +1,13 @@
 import HomeLayoutWrapper from "@/components/HomeLayoutWrapper/HomeLayoutWrapper";
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import "./globals.css";
+import { Rubik } from "next/font/google";
+
+const rubik = Rubik({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-rubik", // 👈 Esto nos permite usarla en Tailwind
+});
 
 export const metadata: Metadata = {
   title: "FotoNube",
@@ -15,18 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={rubik.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <style>{`
-html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
-  --font-mono: ${GeistMono.variable};
-}
-        `}</style>
       </head>
-      <body>
+      <body className="font-sans">
         <HomeLayoutWrapper>{children}</HomeLayoutWrapper>
       </body>
     </html>

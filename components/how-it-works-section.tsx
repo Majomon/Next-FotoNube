@@ -100,7 +100,7 @@ export default function HowItWorksSection() {
                   ></div>
 
                   {/* Step Number */}
-                  <div className="flex flex-col items-center space-y-6 md:flex-row lg:items-start">
+                  <div className="flex flex-col items-center space-y-6 md:flex-row lg:items-start lg:gap-10">
                     <motion.div
                       whileHover={{ scale: 1.1 }}
                       className={`flex-shrink-0 w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg`}
