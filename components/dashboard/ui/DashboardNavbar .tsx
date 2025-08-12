@@ -22,11 +22,11 @@ export default function DashboardNavbar() {
 
   // Links según rol
   const photographerLinks = [
-    { href: "/dashboard/nuevo-album", text: "Nuevo Álbum" },
-    { href: "/dashboard/subir-fotos", text: "Subir Fotos" },
+    { href: "/dashboard/newalbum", text: "Nuevo Álbum" },
+    { href: "/dashboard/uploadphotos", text: "Subir Fotos" },
     { href: "/dashboard/albums", text: "Álbumes" },
-    { href: "/dashboard/pedidos", text: "Pedidos" },
-    { href: "/dashboard/suscripcion", text: "Suscripción" },
+    { href: "/dashboard/orders", text: "Pedidos" },
+    { href: "/dashboard/subscription", text: "Suscripción" },
   ];
 
   const buyerLinks = [

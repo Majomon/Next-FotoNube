@@ -1,7 +1,8 @@
 import HomeLayoutWrapper from "@/components/HomeLayoutWrapper/HomeLayoutWrapper";
+import ClientProgressProvider from "@/components/ProviderProgressBar/ProviderProgressBar";
 import type { Metadata } from "next";
-import "./globals.css";
 import { Rubik } from "next/font/google";
+import "./globals.css";
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -25,7 +26,14 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="font-sans">
-        <HomeLayoutWrapper>{children}</HomeLayoutWrapper>
+        <ClientProgressProvider
+          height="4px"
+          color="#06b6d4"
+          options={{ showSpinner: false }}
+          shallowRouting
+        >
+          <HomeLayoutWrapper>{children}</HomeLayoutWrapper>
+        </ClientProgressProvider>
       </body>
     </html>
   );
