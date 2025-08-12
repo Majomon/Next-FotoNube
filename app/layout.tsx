@@ -6,7 +6,7 @@ import { Rubik } from "next/font/google";
 const rubik = Rubik({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  variable: "--font-rubik", // 👈 Esto nos permite usarla en Tailwind
+  variable: "--font-rubik",
 });
 
 export const metadata: Metadata = {
