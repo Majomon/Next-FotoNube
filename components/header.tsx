@@ -23,7 +23,9 @@ export default function Header() {
           { text: "Iniciar Sesión", href: "/login" },
         ]
       : []),
-    ...(isLoggedIn ? [{ text: "Panel", href: "/dashboard" }] : []),
+    ...(isLoggedIn
+      ? [{ text: "Mi FOTONUBE", href: "/dashboard", special: true }]
+      : []),
   ];
 
   return (
@@ -31,8 +33,7 @@ export default function Header() {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 w-full transition-all duration-300 bg-white/95 backdrop-blur-md shadow-lg"
-        }`}
+        className="fixed top-0 w-full transition-all duration-300 bg-white/95 backdrop-blur-md shadow-lg"
       >
         <div className="container mx-auto px-4 py-1">
           <div className="flex items-center justify-between cursor-pointer">
@@ -63,7 +64,12 @@ export default function Header() {
                   >
                     <Link
                       href={link.href}
-                      className="md:text-xs lg:text-sm font-medium transition-colors text-gray-700 hover:text-cyan-600"
+                      className={`md:text-xs lg:text-sm font-medium transition-colors 
+                        ${
+                          link.special
+                            ? "bg-cyan-500 text-white px-4 py-2 rounded-full hover:bg-cyan-600"
+                            : "text-gray-700 hover:text-cyan-600"
+                        }`}
                     >
                       {link.text}
                     </Link>
@@ -101,7 +107,12 @@ export default function Header() {
                     <motion.li key={link.href} whileHover={{ x: 5 }}>
                       <Link
                         href={link.href}
-                        className="block py-2 text-sm font-medium text-gray-700"
+                        className={`block py-2 text-sm font-medium 
+                          ${
+                            link.special
+                              ? "bg-cyan-500 text-white px-4 py-2 rounded-full hover:bg-cyan-600"
+                              : "text-gray-700"
+                          }`}
                       >
                         {link.text}
                       </Link>

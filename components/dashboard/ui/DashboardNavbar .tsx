@@ -48,7 +48,11 @@ export default function DashboardNavbar() {
             whileHover={{ scale: 1.05 }}
             className="flex items-center space-x-2"
           >
-            <div className="w-6 h-6 bg-cyan-600 rounded-full" />
+            <img
+              src="/logoTop.png"
+              alt="Logo Fotonube"
+              className="w-9 h-8 rounded-full"
+            />
             <span className="text-xl font-bold text-gray-900">FOTONUBE</span>
           </motion.div>
         </Link>
