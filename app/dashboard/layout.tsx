@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }: Props) {
         <DashboardSidebar />
 
         {/* Contenido principal */}
-        <main className="flex-1 p-6 overflow-auto bg-gray-50 pt-24">
+        <main className="w-10/12 p-6 overflow-auto bg-gray-50 pt-24">
           {children}
         </main>
       </div>

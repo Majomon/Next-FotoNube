@@ -6,7 +6,22 @@ import { useAuthStore } from "@/store/useAuthStore";
 
 export default function DashboardSidebar() {
   const { user } = useAuthStore();
-  if (!user) return null;
+
+  if (!user) {
+    return (
+      <aside className="min-h-screen w-2/12 bg-white border-r border-gray-200 flex-shrink-0 h-full px-6">
+        <nav className="fixed top-2 flex flex-col px-4 space-y-4 pt-24">
+          {/* Simula los links con divs */}
+          {Array.from({ length: 5 }).map((_, idx) => (
+            <div
+              key={idx}
+              className="h-6 w-32 bg-gray-200 rounded-md animate-pulse"
+            />
+          ))}
+        </nav>
+      </aside>
+    );
+  }
 
   const photographerLinks = [
     { href: "/dashboard/newalbum", text: "Nuevo Álbum" },
@@ -27,8 +42,8 @@ export default function DashboardSidebar() {
     user.role === "photographer" ? photographerLinks : buyerLinks;
 
   return (
-    <aside className="fixed top-0 min-h-screen w-60 bg-white border-r border-gray-200 flex-shrink-0 h-full">
-      <nav className="flex flex-col px-4 space-y-6 pt-24">
+    <aside className="min-h-screen w-2/12 bg-white border-r border-gray-200 flex-shrink-0 h-full px-6">
+      <nav className="fixed top-2 flex flex-col px-4 space-y-6 pt-24">
         {linksToShow.map((link) => (
           <Link
             key={link.href}
