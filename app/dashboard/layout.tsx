@@ -1,4 +1,5 @@
-import DashboardNavbar from "@/components/dashboard/ui/DashboardNavbar ";
+import DashboardHeader from "@/components/dashboard/DashboardHeader/DashboardHeader";
+import DashboardSidebar from "@/components/dashboard/Sidebar/Sidebar";
 
 type Props = {
   children: React.ReactNode;
@@ -6,9 +7,20 @@ type Props = {
 
 export default function DashboardLayout({ children }: Props) {
   return (
-    <div>
-      <DashboardNavbar />
-      <main className="pt-32 px-6">{children}</main>
+    <div className="flex flex-col h-screen">
+      {/* Header siempre arriba */}
+      <DashboardHeader />
+
+      {/* Contenedor principal: sidebar a la izquierda, contenido a la derecha */}
+      <div className="flex flex-1">
+        {/* Sidebar fijo a la izquierda */}
+        <DashboardSidebar />
+
+        {/* Contenido principal */}
+        <main className="w-10/12 p-6 overflow-auto bg-gray-50 pt-24">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }
