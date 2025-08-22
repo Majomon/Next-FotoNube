@@ -6,10 +6,11 @@ import {
   findAlbumByID,
   findAlbums,
 } from "@/actions/album/album.action";
+import { AlbumIDResponse } from "@/interfaces/album/get-album-by-ID.interface";
 
 interface AlbumState {
   albums: AlbumResponse[];
-  currentAlbum?: AlbumResponse;
+  currentAlbum?: AlbumIDResponse;
   loading: boolean;
   error?: string;
 
@@ -22,7 +23,7 @@ interface AlbumState {
 export const useAlbumStore = create<AlbumState>((set) => ({
   albums: [],
   currentAlbum: undefined,
-  loading: false,
+  loading: true,
   error: undefined,
 
   getAlbums: async () => {

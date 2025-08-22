@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { createAlbum } from "@/actions/album/album.action";
 import { AlbumData } from "@/interfaces/album/create-album.interface";
+import { useRouter } from "next/navigation";
 
 export default function NewAlbumScreen() {
   const {
@@ -40,6 +41,8 @@ export default function NewAlbumScreen() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
+  const router = useRouter();
+
   const onSubmit = async (data: AlbumData) => {
     setLoading(true);
     setMessage(null);
@@ -50,6 +53,8 @@ export default function NewAlbumScreen() {
       setMessage("¡Álbum creado correctamente!");
       reset();
       setTimeout(() => setMessage(null), 5000);
+
+      router.refresh(); // fuerza que el fetch se vuelva a ejecutar en la página
     } else {
       setMessage(result.error);
     }
