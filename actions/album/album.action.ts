@@ -7,6 +7,10 @@ export type AlbumResult =
   | { success: true; data: any }
   | { success: false; error: string };
 
+type UpdateAlbumResult =
+  | { success: true; data: AlbumIDResponse }
+  | { success: false; error: string };
+
 export const createAlbum = async (album: AlbumData): Promise<AlbumResult> => {
   try {
     const { data } = await claraApi.post("/album", album);
@@ -37,6 +41,32 @@ export const findAlbumByID = async (id: string): Promise<AlbumResult> => {
   } catch (error: any) {
     const message =
       error?.response?.data?.message || "Error al obtener el álbum.";
+    return { success: false, error: message };
+  }
+};
+
+export const updateAlbum = async (
+  id: string,
+  payload: Partial<AlbumIDResponse>
+): Promise<UpdateAlbumResult> => {
+  try {
+    const { data } = await claraApi.patch(`/album/${id}`, payload);
+    return { success: true, data: data.album };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.response?.data?.message || "Error al actualizar el álbum",
+    };
+  }
+};
+
+export const deleteAlbumID = async (id: string) => {
+  try {
+    const { data } = await claraApi.delete(`/album/${id}`);
+    return { success: true, data };
+  } catch (error: any) {
+    const message =
+      error?.response?.data?.message || "Error al eliminar el álbum.";
     return { success: false, error: message };
   }
 };

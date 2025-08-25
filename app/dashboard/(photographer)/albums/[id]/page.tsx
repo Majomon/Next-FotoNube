@@ -1,20 +1,21 @@
 "use client";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { useAlbumStore } from "@/store/useAlbumStore";
-import { useParams } from "next/navigation";
-import bcrypt from "bcryptjs";
 import FormInput from "@/components/dashboard/Albums/FormInput";
+import { useAlbumStore } from "@/store/useAlbumStore";
 import { MessageCirclePlus } from "lucide-react";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function AlbumDetailPage() {
   const id = useParams()?.id as string;
-  const { currentAlbum, getAlbumById, loading, error } = useAlbumStore();
+  const { currentAlbum, getAlbumById, updateAlbum, loading, error } =
+    useAlbumStore();
 
   const [form, setForm] = useState({
     title: "",
     userEvent: "",
-    password: "",
+    passwordEvent: "",
     prices: [] as { size: string; price: number }[],
     priceDigital: 0,
     priceSchoolSports: 0,
@@ -34,7 +35,7 @@ export default function AlbumDetailPage() {
       setForm({
         title: currentAlbum.title,
         userEvent: currentAlbum.userEvent,
-        password: "",
+        passwordEvent: "",
         prices: currentAlbum.prices || [],
         priceDigital: currentAlbum.priceDigital || 0,
         priceSchoolSports: currentAlbum.priceSchoolSports || 0,
@@ -73,18 +74,21 @@ export default function AlbumDetailPage() {
   const handleSave = async () => {
     if (!currentAlbum) return;
 
-    let hashedPassword = currentAlbum.passwordEventHash;
-    if (form.password) {
-      hashedPassword = await bcrypt.hash(form.password, 10);
-    }
-
-    const payload = {
+    const payload: any = {
       ...form,
-      password: hashedPassword,
     };
 
-    console.log("Payload a enviar:", payload);
-    alert("Guardado simulado");
+    if (!form.passwordEvent) {
+      delete payload.passwordEvent;
+    }
+
+    const success = await updateAlbum(currentAlbum.id, payload);
+
+    if (success) {
+      toast.success("Álbum actualizado correctamente ✅");
+    } else {
+      toast.error("Error al actualizar el álbum ❌");
+    }
   };
 
   if (!id) return <p>ID inválido</p>;
@@ -112,12 +116,13 @@ export default function AlbumDetailPage() {
           />
           <FormInput
             label="Password"
-            name="password"
-            value={form.password}
+            name="passwordEvent"
+            value={form.passwordEvent}
             onChange={handleChange}
             placeholder="Dejar vacío si no cambia"
             type="password"
           />
+
           <FormInput
             label="Fecha del Evento"
             name="eventDate"
@@ -191,6 +196,7 @@ export default function AlbumDetailPage() {
             placeholder="Álbum activo"
           />
           <button
+            type="button"
             onClick={handleSave}
             className="px-4 py-2 rounded text-white bg-cyan-600 hover:bg-cyan-700 mt-4"
           >

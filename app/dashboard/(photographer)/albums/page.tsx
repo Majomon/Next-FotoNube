@@ -1,13 +1,16 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAlbumStore } from "@/store/useAlbumStore";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function AlbumScreen() {
   const { albums, getAlbums, removeAlbum, loading, error } = useAlbumStore();
-
   const router = useRouter();
+
+  // Estado para modal de confirmación
+  const [albumToDelete, setAlbumToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     if (albums.length === 0) {
@@ -15,7 +18,7 @@ export default function AlbumScreen() {
     }
   }, []);
 
-  const handleAction = async (action: string, albumId: string) => {
+  const handleAction = (action: string, albumId: string) => {
     switch (action) {
       case "ver":
         router.push(`/dashboard/albums/${albumId}`);
@@ -27,18 +30,27 @@ export default function AlbumScreen() {
         router.push(`/dashboard/albums/${albumId}/orders`);
         break;
       case "eliminar":
-        if (window.confirm(`¿Seguro quieres eliminar este álbum?`)) {
-          // Acá deberías también llamar a la API DELETE si existe
-          removeAlbum(albumId);
-        }
+        setAlbumToDelete(albumId); // Abrimos modal
         break;
     }
   };
 
+  const confirmDelete = async () => {
+    if (!albumToDelete) return;
+
+    const success = await removeAlbum(albumToDelete);
+
+    if (success) {
+      toast.success("Álbum eliminado correctamente");
+    } else {
+      toast.error("Hubo un error al eliminar el álbum");
+    }
+
+    setAlbumToDelete(null); // Cerrar modal
+  };
+
   if (loading) return <p className="p-6">Cargando...</p>;
-
   if (error) return <p className="p-6 text-red-600">{error}</p>;
-
   if (!loading && albums.length === 0)
     return (
       <p className="p-6 text-center text-gray-500 text-lg">
@@ -140,6 +152,31 @@ export default function AlbumScreen() {
             </tbody>
           </table>
         </div>
+
+        {/* Modal de confirmación */}
+        {albumToDelete && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-sm">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">
+                ¿Seguro que deseas eliminar este álbum?
+              </h2>
+              <div className="flex justify-end space-x-3">
+                <button
+                  onClick={() => setAlbumToDelete(null)}
+                  className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+                >
+                  No
+                </button>
+                <button
+                  onClick={confirmDelete}
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                >
+                  Sí, eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

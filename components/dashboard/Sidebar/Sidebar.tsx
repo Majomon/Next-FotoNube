@@ -3,9 +3,11 @@
 
 import Link from "next/link";
 import { useAuthStore } from "@/store/useAuthStore";
+import { usePathname } from "next/navigation";
 
 export default function DashboardSidebar() {
   const { user } = useAuthStore();
+  const pathname = usePathname();
 
   if (!user) {
     return (
@@ -44,15 +46,23 @@ export default function DashboardSidebar() {
   return (
     <aside className="min-h-screen w-2/12 bg-white border-r border-gray-200 flex-shrink-0 h-full px-6">
       <nav className="fixed top-2 flex flex-col px-4 space-y-6 pt-24">
-        {linksToShow.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="text-gray-700 hover:text-cyan-600 font-medium"
-          >
-            {link.text}
-          </Link>
-        ))}
+        {linksToShow.map((link) => {
+          const isActive = pathname === link.href;
+
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`font-medium ${
+                isActive
+                  ? "text-cyan-600 border-l-4 border-cyan-600 pl-2"
+                  : "text-gray-700 hover:text-cyan-600"
+              }`}
+            >
+              {link.text}
+            </Link>
+          );
+        })}
       </nav>
     </aside>
   );

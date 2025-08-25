@@ -2,6 +2,7 @@ import HomeLayoutWrapper from "@/components/HomeLayoutWrapper/HomeLayoutWrapper"
 import ClientProgressProvider from "@/components/ProviderProgressBar/ProviderProgressBar";
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
+import { Toaster } from "sonner"; // 👈 import del Toaster de Sonner
 import "./globals.css";
 
 const rubik = Rubik({
@@ -32,6 +33,7 @@ export default function RootLayout({
           options={{ showSpinner: false }}
           shallowRouting
         >
+          <Toaster />
           <HomeLayoutWrapper>{children}</HomeLayoutWrapper>
         </ClientProgressProvider>
       </body>

@@ -1,12 +1,14 @@
-import { create } from "zustand";
-import { AlbumData } from "@/interfaces/album/create-album.interface";
-import { AlbumResponse } from "@/interfaces/album/get-all-album.interface";
 import {
   createAlbum,
+  deleteAlbumID,
   findAlbumByID,
   findAlbums,
+  updateAlbum,
 } from "@/actions/album/album.action";
+import { AlbumData } from "@/interfaces/album/create-album.interface";
 import { AlbumIDResponse } from "@/interfaces/album/get-album-by-ID.interface";
+import { AlbumResponse } from "@/interfaces/album/get-all-album.interface";
+import { create } from "zustand";
 
 interface AlbumState {
   albums: AlbumResponse[];
@@ -17,10 +19,14 @@ interface AlbumState {
   getAlbums: () => Promise<void>;
   getAlbumById: (id: string) => Promise<boolean>;
   addAlbum: (album: AlbumData) => Promise<boolean>;
-  removeAlbum: (id: string) => void;
+  updateAlbum: (
+    id: string,
+    payload: Partial<AlbumIDResponse>
+  ) => Promise<boolean>;
+  removeAlbum: (id: string) => Promise<boolean>;
 }
 
-export const useAlbumStore = create<AlbumState>((set) => ({
+export const useAlbumStore = create<AlbumState>((set, get) => ({
   albums: [],
   currentAlbum: undefined,
   loading: true,
@@ -68,9 +74,35 @@ export const useAlbumStore = create<AlbumState>((set) => ({
     return true;
   },
 
-  removeAlbum: (id: string) => {
-    set((state) => ({
-      albums: state.albums.filter((a) => a.id !== id),
-    }));
+  updateAlbum: async (id, payload) => {
+    set({ loading: true, error: undefined });
+    const result = await updateAlbum(id, payload);
+
+    if (!result.success) {
+      set({ error: result.error, loading: false });
+      return false;
+    }
+
+    // Refrescamos el álbum actualizado
+    await get().getAlbumById(id);
+
+    set({ loading: false });
+    return true;
+  },
+
+  removeAlbum: async (id: string) => {
+    set({ loading: true, error: undefined });
+    const result = await deleteAlbumID(id);
+
+    if (!result.success) {
+      set({ error: result.error, loading: false });
+      return false;
+    }
+    // Refrescamos los álbums
+    await get().getAlbums();
+
+    set({ loading: false });
+
+    return true;
   },
 }));
