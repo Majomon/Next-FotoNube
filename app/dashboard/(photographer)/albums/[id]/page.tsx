@@ -1,6 +1,7 @@
 "use client";
 import FormInput from "@/components/dashboard/Albums/FormInput";
 import { useAlbumStore } from "@/store/useAlbumStore";
+import { usePhotoStore } from "@/store/usePhotoStore";
 import { MessageCirclePlus } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -11,6 +12,17 @@ export default function AlbumDetailPage() {
   const id = useParams()?.id as string;
   const { currentAlbum, getAlbumById, updateAlbum, loading, error } =
     useAlbumStore();
+
+  const {
+    photos,
+    uploadPhotos,
+    deletePhoto,
+    error: errorPhoto,
+    setPhotos,
+    loading: photosLoading,
+  } = usePhotoStore();
+
+  console.log(errorPhoto);
 
   const [form, setForm] = useState({
     title: "",
@@ -50,6 +62,12 @@ export default function AlbumDetailPage() {
     }
   }, [currentAlbum]);
 
+  useEffect(() => {
+    if (currentAlbum?.photos) {
+      setPhotos(currentAlbum.photos); // sincroniza el store de fotos
+    }
+  }, [currentAlbum, setPhotos]);
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -87,8 +105,25 @@ export default function AlbumDetailPage() {
     if (success) {
       toast.success("Álbum actualizado correctamente ✅");
     } else {
-      toast.error("Error al actualizar el álbum ❌");
+      toast.error(errorPhoto);
     }
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    const images = Array.from(files).filter((file) =>
+      file.type.startsWith("image/")
+    );
+    if (!images.length) {
+      toast.error("No se seleccionaron imágenes válidas ❌");
+      return;
+    }
+
+    const ok = await uploadPhotos(images, id);
+    if (ok) toast.success("Fotos subidas correctamente ✅");
+    else toast.error(errorPhoto);
   };
 
   if (!id) return <p>ID inválido</p>;
@@ -207,8 +242,8 @@ export default function AlbumDetailPage() {
 
       {/* Grid de fotos */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {currentAlbum.photos?.length > 0 ? (
-          currentAlbum.photos.map((photo) => (
+        {photos.length > 0 &&
+          photos.map((photo) => (
             <div
               key={photo.id}
               className="relative w-full h-48 rounded overflow-hidden shadow"
@@ -222,35 +257,52 @@ export default function AlbumDetailPage() {
                 unoptimized
               />
               <button
-                onClick={() => console.log("Borrar foto:", photo.id)}
+                onClick={() => deletePhoto(photo.id)}
                 className="absolute bottom-2 right-2 bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center"
               >
                 X
               </button>
             </div>
-          ))
-        ) : (
-          <p className="text-gray-500 col-span-full text-center">
-            No hay fotos en este álbum.
-          </p>
-        )}
+          ))}
 
-        {/* Subir nuevas fotos */}
-        <div className="flex flex-col items-center justify-center border border-dashed border-gray-300 rounded h-48 cursor-pointer">
-          <MessageCirclePlus className="w-16 h-16 text-gray-400" />
-
-          <label className="text-gray-500">
+        {/* Card de subir foto */}
+        <label className="relative w-full h-48 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl cursor-pointer transition-all hover:border-cyan-500 hover:bg-cyan-50 group overflow-hidden shadow">
+          <MessageCirclePlus className="w-16 h-16 text-gray-400 group-hover:text-cyan-600 transition-colors" />
+          <p className="text-gray-500 mt-2 group-hover:text-cyan-600">
             Subir foto
-            <input
-              type="file"
-              className="hidden"
-              onChange={(e) =>
-                console.log("Archivo seleccionado:", e.target.files)
-              }
-              multiple
-            />
-          </label>
-        </div>
+          </p>
+          <input
+            type="file"
+            className="hidden"
+            onChange={handleFileChange}
+            multiple
+            disabled={photosLoading}
+          />
+          {photosLoading && (
+            <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
+              <svg
+                className="animate-spin h-10 w-10 text-cyan-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                ></path>
+              </svg>
+            </div>
+          )}
+        </label>
       </div>
     </div>
   );

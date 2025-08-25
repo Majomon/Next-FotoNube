@@ -23,9 +23,9 @@ export default function AlbumScreen() {
       case "ver":
         router.push(`/dashboard/albums/${albumId}`);
         break;
-      case "modificar":
+      /*       case "modificar":
         router.push(`/dashboard/albums/${albumId}/edit`);
-        break;
+        break; */
       case "pedidos":
         router.push(`/dashboard/albums/${albumId}/orders`);
         break;
@@ -127,12 +127,12 @@ export default function AlbumScreen() {
                       >
                         Ver
                       </button>
-                      <button
+                      {/*                       <button
                         onClick={() => handleAction("modificar", album.id)}
                         className="text-gray-600 hover:text-gray-900"
                       >
                         Modificar
-                      </button>
+                      </button> */}
                       <button
                         onClick={() => handleAction("pedidos", album.id)}
                         className="text-green-600 hover:text-green-900"
