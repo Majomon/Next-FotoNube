@@ -51,15 +51,12 @@ export const deletePhotoById = async (
   }
 };
 
-export const deleteAllPhotosByIds = async (
-  photoIds: string[]
+export const deleteAllPhotosByAlbum = async (
+  albumId: string
 ): Promise<PhotoResult> => {
   try {
-    const deletePromises = photoIds.map((id) =>
-      claraApi.delete(`/photo/${id}`)
-    );
-    await Promise.all(deletePromises);
-    return { success: true, data: null };
+    const { data } = await claraApi.delete(`/photo/album/${albumId}`);
+    return { success: true, data };
   } catch (error: any) {
     const message =
       error?.response?.data?.message || "Error al eliminar fotos.";

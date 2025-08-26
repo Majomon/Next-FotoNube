@@ -118,8 +118,16 @@ export default function AlbumDetailPage() {
   };
 
   const handleConfirmDeleteAll = async () => {
-    await deleteAllPhotos();
-    setModalOpen(!modalOpen);
+    if (!id || photos.length === 0) return;
+
+    // Inhabilitar el modal mientras se elimina
+    setModalOpen(false);
+
+    for (const photo of photos) {
+      await deletePhoto(photo.id);
+    }
+
+    toast.success("Todas las fotos fueron eliminadas ✅");
   };
 
   if (!id) return <p>ID inválido</p>;
