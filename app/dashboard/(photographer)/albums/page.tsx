@@ -38,13 +38,7 @@ export default function AlbumScreen() {
   const confirmDelete = async () => {
     if (!albumToDelete) return;
 
-    const success = await removeAlbum(albumToDelete);
-
-    if (success) {
-      toast.success("Álbum eliminado correctamente");
-    } else {
-      toast.error("Hubo un error al eliminar el álbum");
-    }
+    await removeAlbum(albumToDelete);
 
     setAlbumToDelete(null); // Cerrar modal
   };
