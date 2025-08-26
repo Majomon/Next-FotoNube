@@ -64,7 +64,7 @@ export default function AlbumDetailPage() {
 
   useEffect(() => {
     if (currentAlbum?.photos) {
-      setPhotos(currentAlbum.photos); // sincroniza el store de fotos
+      setPhotos(currentAlbum.photos);
     }
   }, [currentAlbum, setPhotos]);
 
@@ -92,21 +92,10 @@ export default function AlbumDetailPage() {
   const handleSave = async () => {
     if (!currentAlbum) return;
 
-    const payload: any = {
-      ...form,
-    };
+    const payload: any = { ...form };
+    if (!form.passwordEvent) delete payload.passwordEvent;
 
-    if (!form.passwordEvent) {
-      delete payload.passwordEvent;
-    }
-
-    const success = await updateAlbum(currentAlbum.id, payload);
-
-    if (success) {
-      toast.success("Álbum actualizado correctamente ✅");
-    } else {
-      toast.error(errorPhoto);
-    }
+    await updateAlbum(currentAlbum.id, payload);
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,9 +110,7 @@ export default function AlbumDetailPage() {
       return;
     }
 
-    const ok = await uploadPhotos(images, id);
-    if (ok) toast.success("Fotos subidas correctamente ✅");
-    else toast.error(errorPhoto);
+    await uploadPhotos(images, id);
   };
 
   if (!id) return <p>ID inválido</p>;

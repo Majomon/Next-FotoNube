@@ -1,4 +1,3 @@
-// src/store/usePhotoStore.ts
 import { create } from "zustand";
 import {
   uploadPhoto,
@@ -6,11 +5,7 @@ import {
   deletePhotoById,
 } from "@/actions/photo/photo.action";
 import { PhotoResponse } from "@/interfaces/photo/photo.interface";
-
-interface UploadPhotosResult {
-  success: boolean;
-  error?: string;
-}
+import { toast } from "sonner";
 
 interface PhotoState {
   photos: PhotoResponse[];
@@ -19,8 +14,8 @@ interface PhotoState {
 
   setPhotos: (photos: PhotoResponse[]) => void;
   fetchPhotos: () => Promise<void>;
-  uploadPhotos: (files: File[], albumId: string) => Promise<UploadPhotosResult>;
-  deletePhoto: (id: string) => Promise<boolean>;
+  uploadPhotos: (files: File[], albumId: string) => Promise<void>;
+  deletePhoto: (id: string) => Promise<void>;
 }
 
 export const usePhotoStore = create<PhotoState>((set, get) => ({
@@ -36,6 +31,7 @@ export const usePhotoStore = create<PhotoState>((set, get) => ({
 
     if (!result.success) {
       set({ error: result.error, loading: false });
+      toast.error(result.error || "Error al cargar fotos ❌");
       return;
     }
 
@@ -44,7 +40,6 @@ export const usePhotoStore = create<PhotoState>((set, get) => ({
 
   uploadPhotos: async (files, albumId) => {
     set({ loading: true, error: undefined });
-
     const uploaded: PhotoResponse[] = [];
 
     for (const file of files) {
@@ -52,7 +47,8 @@ export const usePhotoStore = create<PhotoState>((set, get) => ({
 
       if (!result.success) {
         set({ error: result.error, loading: false });
-        return { success: false, error: result.error }; // <-- retornar error
+        toast.error(result.error || "Error al subir foto ❌");
+        return;
       }
       uploaded.push(result.data);
     }
@@ -62,7 +58,7 @@ export const usePhotoStore = create<PhotoState>((set, get) => ({
       loading: false,
     }));
 
-    return { success: true };
+    toast.success("Fotos subidas correctamente ✅");
   },
 
   deletePhoto: async (id) => {
@@ -71,7 +67,8 @@ export const usePhotoStore = create<PhotoState>((set, get) => ({
 
     if (!result.success) {
       set({ error: result.error, loading: false });
-      return false;
+      toast.error(result.error || "Error al eliminar foto ❌");
+      return;
     }
 
     set((state) => ({
@@ -79,6 +76,6 @@ export const usePhotoStore = create<PhotoState>((set, get) => ({
       loading: false,
     }));
 
-    return true;
+    toast.success("Foto eliminada ✅");
   },
 }));

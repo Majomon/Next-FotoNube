@@ -13,4 +13,5 @@ export interface Photo {
   id: string;
   url: string;
   publicId: string;
+  sizeMb: number;
 }

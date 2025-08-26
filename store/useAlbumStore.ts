@@ -9,6 +9,7 @@ import { AlbumData } from "@/interfaces/album/create-album.interface";
 import { AlbumIDResponse } from "@/interfaces/album/get-album-by-ID.interface";
 import { AlbumResponse } from "@/interfaces/album/get-all-album.interface";
 import { create } from "zustand";
+import { toast } from "sonner";
 
 interface AlbumState {
   albums: AlbumResponse[];
@@ -17,13 +18,10 @@ interface AlbumState {
   error?: string;
 
   getAlbums: () => Promise<void>;
-  getAlbumById: (id: string) => Promise<boolean>;
-  addAlbum: (album: AlbumData) => Promise<boolean>;
-  updateAlbum: (
-    id: string,
-    payload: Partial<AlbumIDResponse>
-  ) => Promise<boolean>;
-  removeAlbum: (id: string) => Promise<boolean>;
+  getAlbumById: (id: string) => Promise<void>;
+  addAlbum: (album: AlbumData) => Promise<void>;
+  updateAlbum: (id: string, payload: Partial<AlbumIDResponse>) => Promise<void>;
+  removeAlbum: (id: string) => Promise<void>;
 }
 
 export const useAlbumStore = create<AlbumState>((set, get) => ({
@@ -38,6 +36,7 @@ export const useAlbumStore = create<AlbumState>((set, get) => ({
 
     if (!result.success) {
       set({ error: result.error, loading: false });
+      toast.error(result.error || "Error al cargar álbumes ❌");
       return;
     }
 
@@ -50,11 +49,11 @@ export const useAlbumStore = create<AlbumState>((set, get) => ({
 
     if (!result.success) {
       set({ error: result.error, loading: false });
-      return false;
+      toast.error(result.error || "Error al cargar álbum ❌");
+      return;
     }
 
     set({ currentAlbum: result.data, loading: false });
-    return true;
   },
 
   addAlbum: async (album: AlbumData) => {
@@ -63,7 +62,8 @@ export const useAlbumStore = create<AlbumState>((set, get) => ({
 
     if (!result.success) {
       set({ error: result.error, loading: false });
-      return false;
+      toast.error(result.error || "Error al crear álbum ❌");
+      return;
     }
 
     set((state) => ({
@@ -71,7 +71,7 @@ export const useAlbumStore = create<AlbumState>((set, get) => ({
       loading: false,
     }));
 
-    return true;
+    toast.success("Álbum creado correctamente ✅");
   },
 
   updateAlbum: async (id, payload) => {
@@ -80,14 +80,14 @@ export const useAlbumStore = create<AlbumState>((set, get) => ({
 
     if (!result.success) {
       set({ error: result.error, loading: false });
-      return false;
+      toast.error(result.error || "Error al actualizar álbum ❌");
+      return;
     }
 
-    // Refrescamos el álbum actualizado
     await get().getAlbumById(id);
 
     set({ loading: false });
-    return true;
+    toast.success("Álbum actualizado correctamente ✅");
   },
 
   removeAlbum: async (id: string) => {
@@ -96,13 +96,12 @@ export const useAlbumStore = create<AlbumState>((set, get) => ({
 
     if (!result.success) {
       set({ error: result.error, loading: false });
-      return false;
+      toast.error(result.error || "Error al eliminar álbum ❌");
+      return;
     }
-    // Refrescamos los álbums
+
     await get().getAlbums();
-
     set({ loading: false });
-
-    return true;
+    toast.success("Álbum eliminado ✅");
   },
 }));

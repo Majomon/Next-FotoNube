@@ -1,5 +1,6 @@
 export interface PhotoResponse {
-  id: string;
+  id: string; // UUID de la foto
   url: string;
-  publicId: string;
+  publicId: string; // Cloudinary public_id
+  sizeMb: number;
 }
