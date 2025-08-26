@@ -27,7 +27,6 @@ export default function DashboardSidebar() {
 
   const photographerLinks = [
     { href: "/dashboard/newalbum", text: "Nuevo Álbum" },
-    { href: "/dashboard/uploadphotos", text: "Subir Fotos" },
     { href: "/dashboard/albums", text: "Álbumes" },
     { href: "/dashboard/orders", text: "Pedidos" },
     { href: "/dashboard/subscription", text: "Suscripción" },

@@ -1,4 +1,5 @@
 "use client";
+import ConfirmModal from "@/components/dashboard/Albums/ConfirmModal";
 import FormInput from "@/components/dashboard/Albums/FormInput";
 import { useAlbumStore } from "@/store/useAlbumStore";
 import { usePhotoStore } from "@/store/usePhotoStore";
@@ -10,6 +11,7 @@ import { toast } from "sonner";
 
 export default function AlbumDetailPage() {
   const id = useParams()?.id as string;
+  const [modalOpen, setModalOpen] = useState(false);
   const { currentAlbum, getAlbumById, updateAlbum, loading, error } =
     useAlbumStore();
 
@@ -17,12 +19,10 @@ export default function AlbumDetailPage() {
     photos,
     uploadPhotos,
     deletePhoto,
-    error: errorPhoto,
+    deleteAllPhotos,
     setPhotos,
     loading: photosLoading,
   } = usePhotoStore();
-
-  console.log(errorPhoto);
 
   const [form, setForm] = useState({
     title: "",
@@ -111,6 +111,15 @@ export default function AlbumDetailPage() {
     }
 
     await uploadPhotos(images, id);
+  };
+
+  const handleDeleteAllClick = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const handleConfirmDeleteAll = async () => {
+    await deleteAllPhotos();
+    setModalOpen(!modalOpen);
   };
 
   if (!id) return <p>ID inválido</p>;
@@ -227,6 +236,25 @@ export default function AlbumDetailPage() {
         </div>
       </div>
 
+      {/* Borrar todas las fotos */}
+      {photos.length > 0 && (
+        <>
+          <button
+            onClick={handleDeleteAllClick}
+            className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
+          >
+            Borrar todas las fotos
+          </button>
+
+          <ConfirmModal
+            open={modalOpen}
+            message="¿Estás seguro de que quieres borrar todas las fotos del álbum?"
+            onConfirm={handleConfirmDeleteAll}
+            onCancel={handleDeleteAllClick}
+          />
+        </>
+      )}
+
       {/* Grid de fotos */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {photos.length > 0 &&
@@ -253,7 +281,10 @@ export default function AlbumDetailPage() {
           ))}
 
         {/* Card de subir foto */}
-        <label className="relative w-full h-48 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl cursor-pointer transition-all hover:border-cyan-500 hover:bg-cyan-50 group overflow-hidden shadow">
+        <label
+          className={`relative w-full h-48 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl cursor-pointer transition-all hover:border-cyan-500 hover:bg-cyan-50 group overflow-hidden shadow
+    ${photosLoading ? "pointer-events-none opacity-50" : ""}`}
+        >
           <MessageCirclePlus className="w-16 h-16 text-gray-400 group-hover:text-cyan-600 transition-colors" />
           <p className="text-gray-500 mt-2 group-hover:text-cyan-600">
             Subir foto
@@ -263,7 +294,7 @@ export default function AlbumDetailPage() {
             className="hidden"
             onChange={handleFileChange}
             multiple
-            disabled={photosLoading}
+            disabled={photosLoading} // <--- inhabilita el input
           />
           {photosLoading && (
             <div className="absolute inset-0 bg-white/70 flex items-center justify-center">

@@ -16,6 +16,7 @@ interface PhotoState {
   fetchPhotos: () => Promise<void>;
   uploadPhotos: (files: File[], albumId: string) => Promise<void>;
   deletePhoto: (id: string) => Promise<void>;
+  deleteAllPhotos: () => Promise<void>;
 }
 
 export const usePhotoStore = create<PhotoState>((set, get) => ({
@@ -77,5 +78,26 @@ export const usePhotoStore = create<PhotoState>((set, get) => ({
     }));
 
     toast.success("Foto eliminada ✅");
+  },
+
+  deleteAllPhotos: async () => {
+    const { photos, setPhotos } = get();
+    if (!photos.length) return;
+
+    set({ loading: true, error: undefined });
+
+    const deletePromises = photos.map((photo) => deletePhotoById(photo.id));
+    const results = await Promise.all(deletePromises);
+
+    const failed = results.filter((r) => !r.success);
+    if (failed.length) {
+      set({ loading: false, error: "Error al eliminar algunas fotos." });
+      toast.error("Error al eliminar algunas fotos ❌");
+      return;
+    }
+
+    setPhotos([]);
+    set({ loading: false });
+    toast.success("Todas las fotos fueron eliminadas ✅");
   },
 }));
