@@ -81,6 +81,14 @@ const config: Config = {
             height: "var(--radix-accordion-content-height)",
           },
         },
+        progress: {
+          from: {
+            width: "0",
+          },
+          to: {
+            width: "100%",
+          },
+        },
         "accordion-up": {
           from: {
             height: "var(--radix-accordion-content-height)",
