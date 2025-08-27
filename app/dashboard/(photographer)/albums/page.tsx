@@ -1,9 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { useAlbumStore } from "@/store/useAlbumStore";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { useEffect, useState } from "react";
 
 export default function AlbumScreen() {
   const { albums, getAlbums, removeAlbum, loading, error } = useAlbumStore();

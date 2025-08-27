@@ -18,12 +18,41 @@ export const uploadPhoto = async (
 
     return { success: true, data };
   } catch (error: any) {
-    if (error.response) {
-      console.error("Error response:", error.response.data);
-      return { success: false, error: error.response.data.message };
+    console.error("Error en uploadPhoto:", error);
+
+    let message = "Unexpected error";
+
+    if (error.response?.data?.message) {
+      message = error.response.data.message;
+    } else if (error.message) {
+      message = error.message;
     }
-    console.error("Unexpected error:", error);
-    return { success: false, error: "Unexpected error" };
+
+    return { success: false, error: message };
+  }
+};
+
+export const uploadMultiplePhotos = async (
+  files: File[],
+  albumId: string,
+  totalSizeMb: number
+): Promise<PhotoResult> => {
+  try {
+    const formData = new FormData();
+    files.forEach((file) => formData.append("files", file));
+    formData.append("totalSizeMb", totalSizeMb.toString()); // <-- enviar al backend
+
+    const { data } = await claraApi.post(
+      `/photo/upload-multiple/${albumId}`,
+      formData
+    );
+
+    return { success: true, data };
+  } catch (error: any) {
+    console.error("Error en uploadMultiplePhotos:", error);
+    const message =
+      error.response?.data?.message || error.message || "Error al subir fotos";
+    return { success: false, error: message };
   }
 };
 

@@ -4,6 +4,7 @@ import {
   getPhotos,
   deletePhotoById,
   deleteAllPhotosByAlbum,
+  uploadMultiplePhotos,
 } from "@/actions/photo/photo.action";
 import { PhotoResponse } from "@/interfaces/photo/photo.interface";
 import { toast } from "sonner";
@@ -15,7 +16,11 @@ interface PhotoState {
 
   setPhotos: (photos: PhotoResponse[]) => void;
   fetchPhotos: () => Promise<void>;
-  uploadPhotos: (files: File[], albumId: string) => Promise<void>;
+  uploadPhotos: (
+    files: File[],
+    albumId: string,
+    totalSizeMb: number
+  ) => Promise<void>;
   deletePhoto: (id: string) => Promise<void>;
   deleteAllPhotos: (albumId: string) => Promise<void>;
 }
@@ -40,23 +45,46 @@ export const usePhotoStore = create<PhotoState>((set, get) => ({
     set({ photos: result.data, loading: false });
   },
 
-  uploadPhotos: async (files, albumId) => {
+  /*   uploadPhotos: async (files, albumId) => {
     set({ loading: true, error: undefined });
-    const uploaded: PhotoResponse[] = [];
 
-    for (const file of files) {
-      const result = await uploadPhoto(file, albumId);
+    const uploadPromises = files.map((file) => uploadPhoto(file, albumId));
+    const results = await Promise.all(uploadPromises);
 
-      if (!result.success) {
-        set({ error: result.error, loading: false });
-        toast.error(result.error || "Error al subir foto ❌");
-        return;
-      }
-      uploaded.push(result.data);
+    // Filtrar los que fallaron
+    const failed = results.find((r) => !r.success);
+    if (failed) {
+      toast.error(failed.error || "Error al subir fotos ❌");
+      return;
     }
+
+    // Todos OK, safe acceder a data
+    const uploaded = results.map(
+      (r) => (r as { success: true; data: any }).data
+    );
 
     set((state) => ({
       photos: [...state.photos, ...uploaded],
+      loading: false,
+    }));
+
+    toast.success("Fotos subidas correctamente ✅");
+  }, */
+
+  uploadPhotos: async (files, albumId, totalSizeMb) => {
+    set({ loading: true, error: undefined });
+
+    const result = await uploadMultiplePhotos(files, albumId, totalSizeMb);
+
+    if (!result.success) {
+      toast.error(result.error || "Error al subir fotos ❌");
+      set({ loading: false, error: result.error });
+      return;
+    }
+
+    // TypeScript ahora reconoce todos los campos de PhotoResponse
+    set((state) => ({
+      photos: [...state.photos, ...result.data],
       loading: false,
     }));
 

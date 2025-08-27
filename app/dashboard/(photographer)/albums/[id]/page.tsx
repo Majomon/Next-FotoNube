@@ -110,7 +110,16 @@ export default function AlbumDetailPage() {
       return;
     }
 
-    await uploadPhotos(images, id);
+    const totalSizeMb = images.reduce(
+      (sum, file) => sum + file.size / (1024 * 1024),
+      0
+    );
+
+    try {
+      await uploadPhotos(images, id, totalSizeMb); // <--- ahora sube todos en un solo request
+    } catch (err) {
+      console.error("Error subiendo fotos:", err);
+    }
   };
 
   const handleDeleteAllClick = () => {
@@ -268,11 +277,11 @@ export default function AlbumDetailPage() {
         {photos.length > 0 &&
           photos.map((photo) => (
             <div
-              key={photo.id}
+              key={photo.urlThumbnail}
               className="relative w-full h-48 rounded overflow-hidden shadow"
             >
               <Image
-                src={photo.url}
+                src={photo.urlThumbnail}
                 alt={`Foto ${photo.id}`}
                 fill
                 style={{ objectFit: "cover" }}

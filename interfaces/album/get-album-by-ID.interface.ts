@@ -20,8 +20,10 @@ export interface AlbumIDResponse {
 export interface Photo {
   id: string;
   url: string;
-  publicId: string;
   sizeMb: number;
+  publicId: string;
+  urlWeb: string;
+  urlThumbnail: string;
 }
 
 export interface Price {
